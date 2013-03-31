@@ -763,49 +763,8 @@ init_workspace()
 
 static GcomprisBoard *get_board_to_start()
 {
-  GcomprisBoard *board_to_start;
-
-  /* By default, the menu will be started */
-  board_to_start = properties->menu_board;
-
-  /* Get and Run the root menu */
-  if(properties->administration)
-    {
-      board_to_start = gc_menu_section_get("/administration/administration");
-    }
-  else
-    {
-      /* If we have a profile defined, run the login screen
-       * (the login screen is a board that uppon login completion
-       * starts the menu)
-       */
-      if(properties->profile && properties->profile->group_ids)
-	{
-	  gboolean found = FALSE;
-
-	  GList *group_id;
-
-	  for (group_id = properties->profile->group_ids; group_id != NULL; group_id = group_id->next)
-	    if (g_list_length(gc_db_users_from_group_get( *((int *) group_id->data))) > 0){
-	      found = TRUE;
-	      break;
-	    }
-
-	  /* No profile start normally */
-	  if (found)
-	    board_to_start = gc_menu_section_get("/login/login");
-	  else {
-	    board_to_start = gc_menu_section_get(properties->root_menu);
-	    /* this will set user information to system one */
-	    gc_profile_set_current_user(NULL);
-	  }
-	}
-      else
-	/* this will set user information to system one */
-	gc_profile_set_current_user(NULL);
-    }
-
-  return board_to_start;
+  //Roopesh: We need to login before doing anything. 
+  return  gc_menu_section_get("/login/login");
 }
 
 static void setup_window ()
