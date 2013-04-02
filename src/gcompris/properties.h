@@ -41,8 +41,8 @@ typedef struct {
   gint		disable_config;
   gint		disable_level;
   gint		display_resource;
-  gint          autolevel; /* Should we remember the last level for the 
-                              non-signed-in user as well (-1) */
+  gint          rememberlevel; /* Should we remember the last level for the
+				  non-signed-in user as well (-1) */
   gchar        *root_menu;
   gchar        *package_data_dir;
   gchar        *package_skin_dir;

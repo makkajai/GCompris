@@ -325,22 +325,21 @@ gc_board_play(GcomprisBoard *gcomprisBoard)
 
       bp->start_board(gcomprisBoard);
 
-     /*also set the level to the last played level if the plugin exposes 
+     /*also set the level to the last played level if the plugin exposes
        a method for that*/
       if(bp->set_level)
       {
         GcomprisUser *gcomprisUser = gc_profile_get_current_user();
         int user_id = -1;
-      
         if (gcomprisUser) {
           user_id = gcomprisUser->user_id;
         }
 
         GcomprisProperties *properties = gc_prop_get();
 
-        /*For all signed in users or if -autolevel flag is used or if 
-          autolevel configuration is set to true */
-        if(user_id != -1 || properties->autolevel)
+        /* For all signed in users or if --rememberlevel flag is used or if
+	   rememberlevel configuration is set to true */
+        if(user_id != -1 || properties->rememberlevel)
         {
           int level_id = get_last_played_level(user_id
                                              , gcomprisBoard->board_id);
