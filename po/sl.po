@@ -4,15 +4,15 @@
 #
 # Damjan Kovač <damjan@o-bakovci.ms.edus.si>, 2003 - 2004.
 # Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2010.
-# Matej Urbančič <mateju@svn.gnome.org>, 2006 - 2012.
+# Matej Urbančič <mateju@svn.gnome.org>, 2006 - 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gcompris master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gcompris&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-11-26 20:06+0000\n"
-"PO-Revision-Date: 2012-11-27 08:16+0100\n"
+"POT-Creation-Date: 2013-03-31 17:44+0000\n"
+"PO-Revision-Date: 2013-03-31 20:07+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -27,7 +27,7 @@ msgstr ""
 # http://gcompris.net/-On-one-page-
 #: ../boards/algebra_group.xml.in.h:1
 msgid "Go to Algebra activities"
-msgstr "Matematične naloge"
+msgstr "Naloge iz algebre"
 
 #: ../boards/algebra_group.xml.in.h:2 ../boards/menu.xml.in.h:2
 #: ../boards/money_group.xml.in.h:2
@@ -2858,7 +2858,7 @@ msgstr ""
 "tudi srednji gumb miške."
 
 #: ../src/drawnumber-activity/drawnumber.py:238
-#: ../src/explore-activity/explore.py:466 ../src/findit-activity/findit.py:336
+#: ../src/explore-activity/explore.py:412 ../src/findit-activity/findit.py:336
 #: ../src/louis_braille-activity/louis_braille.py:84
 #: ../src/piano_composition-activity/piano_composition.py:504
 msgid "Cannot find the file '{filename}'"
@@ -3043,7 +3043,7 @@ msgstr "S klikom na miško počisti umazano polje in odkrij ozadje."
 msgid "Click the mouse on rectangles until all the blocks disappear."
 msgstr "Z miško klikni na vsak kvadratek, dokler zaslon ni čist."
 
-#: ../src/explore-activity/explore.py:90
+#: ../src/explore-activity/explore.py:85
 #: ../src/note_names-activity/note_names.py:82
 #: ../src/piano_composition-activity/piano_composition.py:371
 #: ../src/play_piano-activity/play_piano.py:78
@@ -3059,12 +3059,12 @@ msgstr ""
 "Zvok omogočite med nastavitvami v pogovornem\n"
 "oknu nastavitev."
 
-#: ../src/explore-activity/explore.py:159
+#: ../src/explore-activity/explore.py:152
 msgid "Click to play sound"
 msgstr "Klikni za predvajanje zvoka"
 
 #. draw back button
-#: ../src/explore-activity/explore.py:278
+#: ../src/explore-activity/explore.py:276
 msgid "Back to Homepage"
 msgstr "Nazaj na domačo stran"
 
@@ -3072,18 +3072,18 @@ msgstr "Nazaj na domačo stran"
 #. WRITE LOCATION-SPECIFIC CONTENT TO PAGE
 #. ---------------------------------------------------------------------
 #. FIXME Should remove the space in the data file instead
-#: ../src/explore-activity/explore.py:297
-#: ../src/explore-activity/explore.py:310
-#: ../src/explore-activity/explore.py:497
-#: ../src/explore-activity/explore.py:500
-#: ../src/explore-activity/explore.py:503
-#: ../src/explore-activity/explore.py:519
+#: ../src/explore-activity/explore.py:295
+#: ../src/explore-activity/explore.py:308
+#: ../src/explore-activity/explore.py:443
+#: ../src/explore-activity/explore.py:446
+#: ../src/explore-activity/explore.py:449
+#: ../src/explore-activity/explore.py:461
 #: ../src/piano_composition-activity/piano_composition.py:449
 #: ../src/piano_composition-activity/piano_composition.py:578
 msgid " "
 msgstr " "
 
-#: ../src/explore-activity/explore.py:471 ../src/findit-activity/findit.py:341
+#: ../src/explore-activity/explore.py:417 ../src/findit-activity/findit.py:341
 #: ../src/louis_braille-activity/louis_braille.py:88
 #: ../src/piano_composition-activity/piano_composition.py:509
 msgid ""
@@ -3093,7 +3093,7 @@ msgstr ""
 "Razčlenjevanje niza podatkov '{filename}' je spodletelo z napako:\n"
 "{error}"
 
-#: ../src/explore-activity/explore.py:590
+#: ../src/explore-activity/explore.py:511
 msgid "Explore Status:"
 msgstr "Stanje spoznavanja:"
 
@@ -4941,6 +4941,7 @@ msgid "Greece"
 msgstr "Grčija"
 
 #: ../src/geography-activity/resources/geography/board5_0.xml.in.h:24
+#: ../src/geography-activity/resources/geography/board9_0.xml.in.h:14
 msgid "Cyprus"
 msgstr "Ciper"
 
@@ -5199,7 +5200,7 @@ msgid "Black Sea"
 msgstr " Črno morje"
 
 #: ../src/geography-activity/resources/geography/board9_0.xml.in.h:4
-msgid "Mediteranean Sea"
+msgid "Mediterranean Sea"
 msgstr "Sredozemsko morje"
 
 #: ../src/geography-activity/resources/geography/board9_0.xml.in.h:5
@@ -5233,10 +5234,6 @@ msgstr "Bahrajn"
 #: ../src/geography-activity/resources/geography/board9_0.xml.in.h:13
 msgid "Lebanon"
 msgstr "Libanon"
-
-#: ../src/geography-activity/resources/geography/board9_0.xml.in.h:14
-msgid "Chypre"
-msgstr "Ciper"
 
 #: ../src/geography-activity/resources/geography/board9_0.xml.in.h:15
 msgid "Kuwait"
@@ -6464,7 +6461,7 @@ msgstr "Tamburin"
 msgid "the tuba"
 msgstr "Tuba"
 
-#: ../src/intro_gravity-activity/intro_gravity.py:98
+#: ../src/intro_gravity-activity/intro_gravity.py:100
 msgid ""
 "Gravity is universal and Newton's law of universal gravitation extends "
 "gravity beyond earth. This force of gravitational attraction is directly "
@@ -6477,7 +6474,7 @@ msgstr ""
 "med njunima središčema. Upoštevati pa je treba še posebno težnostno "
 "konstanto."
 
-#: ../src/intro_gravity-activity/intro_gravity.py:105
+#: ../src/intro_gravity-activity/intro_gravity.py:107
 msgid ""
 "Since the gravitational force is directly proportional to the mass of both "
 "interacting objects, more massive objects will attract each other with a "
@@ -6493,7 +6490,7 @@ msgstr ""
 "razdalje med središčema teles. Daljša je razdalja, manjša je sila težnosti. "
 "Vpliv se zmanjšuje s kvadratom razdalje."
 
-#: ../src/intro_gravity-activity/intro_gravity.py:118
+#: ../src/intro_gravity-activity/intro_gravity.py:120
 msgid ""
 "Your goal is to let Tux's spaceship move by changing the mass of its "
 "surrounding planets. Don't get too close to the planets or you will crash on "
@@ -6503,7 +6500,7 @@ msgstr ""
 "okoliških planetov. Vesoljska ladja se planetu ne sme preveč približati, saj "
 "lahko nanj strmoglavi. Puščica kaže smer in velikost sile na vesoljsko ladjo."
 
-#: ../src/intro_gravity-activity/intro_gravity.py:128
+#: ../src/intro_gravity-activity/intro_gravity.py:130
 msgid "Avoid the asteroid and join the space shuttle to win."
 msgstr ""
 "Izogni se astaroidom in se združi s raketoplanom Space Shuttle za zmago."
@@ -6531,7 +6528,7 @@ msgstr "Sledi navodilom med izvajanjem dejavnosti."
 msgid "Gravity: %s"
 msgstr "Težnost: %s"
 
-#: ../src/land_safe-activity/land_safe.py:164
+#: ../src/land_safe-activity/land_safe.py:165
 msgid ""
 "Use the up and down keys to control the thrust\n"
 "Use the right and left keys to control direction.\n"
@@ -6543,23 +6540,23 @@ msgstr ""
 "S Pingovo vesoljsko ladjo je treba pristati na pristajalni ploščadi.\n"
 "Ta se obarva zeleno, ko sta hitrost in smer varni za pristajanje."
 
-#: ../src/land_safe-activity/land_safe.py:169
+#: ../src/land_safe-activity/land_safe.py:170
 msgid "Click on me or press the Return key when you are ready."
 msgstr "Klikni ali pa pritisni vnosno tipko za nadaljevanje."
 
-#: ../src/land_safe-activity/land_safe.py:171
+#: ../src/land_safe-activity/land_safe.py:172
 msgid "I am ready!"
 msgstr "Sem na mestu!"
 
-#: ../src/land_safe-activity/land_safe.py:453
+#: ../src/land_safe-activity/land_safe.py:470
 msgid "Height: "
 msgstr "Višina: "
 
-#: ../src/land_safe-activity/land_safe.py:469
+#: ../src/land_safe-activity/land_safe.py:486
 msgid "Fuel"
 msgstr "Gorivo"
 
-#: ../src/land_safe-activity/land_safe.py:501
+#: ../src/land_safe-activity/land_safe.py:519
 msgid "Velocity: "
 msgstr "Hitrost: "
 
@@ -7466,35 +7463,35 @@ msgid ""
 "buttons, or anything you can count. If you have lots of brothers and "
 "sisters, you can count them! Or the kids in your class at school. Sing "
 "counting songs. Count lots of things, for practice, and you'll be very good "
-"at adding-up!\n"
+"at subtracting numbers!\n"
 "\n"
 "In this game, these cards are hiding the two parts of a subtraction. You "
 "need to find the two parts of the subtraction, and bring them together "
 "again. Click on a card to see what number it's hiding, then try to find the "
-"other card that goes with it, to make a whole sum. You can only turn over "
-"two cards in one go, so you need to remember where the numbers are hiding, "
-"then you can match them when you find their other half. You're doing the job "
-"of the equals sign, and the numbers need you to put them together and make a "
-"proper sum. When you do that, both those cards disappear! When you've made "
-"them all disappear, found all the subtracts, you've won the game! :)"
+"other card that goes with it, to make a whole difference. You can only turn "
+"over two cards in one go, so you need to remember where the numbers are "
+"hiding, then you can match them when you find their other half. You're doing "
+"the job of the equals sign, and the numbers need you to put them together "
+"and make a proper difference. When you do that, both those cards disappear! "
+"When you've made them all disappear, found all the subtracts, you've won the "
+"game! :)"
 msgstr ""
 "Vidiš lahko nekaj kart, ne pa tudi, kaj je na drugi strani. Vsaka karta "
 "skriva odštevanje ali odgovor nanj.\n"
 "Odštevanje je videti takole: 3 - 1 = 2\n"
 "Števila na eni strani znaka je enako (=) morajo biti enaka številu na drugi "
-"strani. Tako je 3 (1,2,3) minus 1 (1) enako 2. Med računanjem je dovoljeno "
-"šteti naglas ali na prste, saj si tako lažje zapomnimo števila. Kot "
-"pripomoček je dovoljeno uporabiti tudi kocke, gumbe ali karkoli drugega. Če "
-"imaš veliko bratov ali sester, lahko šteješ njih! Ali tvoje sošolce v šoli. "
-"Poj seštevanke. Za vajo štej veliko stvari in kmalu boš seštevanje "
-"enostavno!\n"
+"strani. Tako je 3 (1,2,3) minus 1 (1) enako 2. Med računanjem štej naglas in "
+"štej na prste, ker si boš potem lažje zapomnil/a števila. Uporabiš lahko "
+"tudi kocke, gumbe ali karkoli drugega, kar lahko šteješ. Če imaš veliko "
+"bratov ali sester, lahko šteješ njih! Ali tvoje sošolce v šoli. Poj "
+"seštevanke. Za vajo štej veliko stvari in kmalu boš zelo dobro sešteval/a!\n"
 "\n"
-"V tej igri karte skrivajo dva para odštevanja. Najti je treba oba dela "
-"enačbe odštevanja in ju ponovno združiti. S klikom na karto se pokaže skrita "
-"številka, najti pa je treba drugo karto, ki je prav tako del enačbe. "
-"Naenkrat je mogoče obrniti le dve karti, zato si je treba zapomniti tudi, "
-"kje se številke skrivajo. Ko sta obe karti, ki tvorita enačbo, odkriti, "
-"izgineta. Igre je konec, ko so odkriti vsi pari kart! :)"
+"V tej igri karte skrivajo dva para odštevanja. Moral/a boš najti dva dela "
+"odštevanja in ju ponovno pripeljati skupaj. Klikni na karto, da vidiš katera "
+"številka se skriva in nato poskusi najti drugo karto, ki spada zraven. "
+"Naenkrat lahko obrneš le dve karti, zato si moraš zapomniti kje se številke "
+"skrivajo. Ko hkrati odkriješ pravi karti, obe karti izgineta. Ko vse karte "
+"izginejo, si zmagal/a! :)"
 
 #: ../src/memory_minus_tux-activity/memory_minus_tux.xml.in.h:1
 msgid "Subtraction memory game against Tux"
@@ -8997,7 +8994,7 @@ msgstr ""
 "- vnosna tipka: potrditev, v redu\n"
 "- preslednica: predvajanje ritma\n"
 
-#: ../src/pythontemplate-activity/pythontemplate.py:62
+#: ../src/pythontemplate-activity/pythontemplate.py:69
 #: ../src/pythontest-activity/pythontest.py:182
 msgid ""
 "This is the first plugin in GCompris coded in the Python\n"
@@ -9507,6 +9504,66 @@ msgstr ""
 msgid "Numbers With Dice"
 msgstr "Števila na kocki"
 
+#: ../src/submarine-activity/submarine.c:394
+#: ../src/submarine-activity/submarine.c:637
+msgid "Engine control, use the buttons to select your speed."
+msgstr "Nadzor motorja; z gumbi izberite svojo hitrost."
+
+#: ../src/submarine-activity/submarine.c:410
+msgid "Compressed air tank is used to flush water out of the ballasts."
+msgstr "Zbiralnik stisnjenega zraka je namenjen izplakovanju vode iz balastov."
+
+#: ../src/submarine-activity/submarine.c:524
+msgid "Open or close the the ballast tank."
+msgstr "Odprite ali zaprite balastni zbiralnik."
+
+#: ../src/submarine-activity/submarine.c:525
+msgid "It allows the water, to get in the tank."
+msgstr "Omogoča, da voda vstopa v zbiralnik."
+
+#: ../src/submarine-activity/submarine.c:526
+#: ../src/submarine-activity/submarine.c:563
+msgid "Increase the water level to dive."
+msgstr "Povišajte gladino vode za potop."
+
+#: ../src/submarine-activity/submarine.c:527
+msgid "Lower the water level to rise to the surface."
+msgstr "Znižajte raven vode za dvig na vodno gladino."
+
+#: ../src/submarine-activity/submarine.c:561
+msgid "Open or close the the ballast flush."
+msgstr "Odprite ali zaprite odplako balasta."
+
+#: ../src/submarine-activity/submarine.c:562
+msgid "It flushes the water out of the tank."
+msgstr "Izplakne vodo iz zbiralnika."
+
+#: ../src/submarine-activity/submarine.c:564
+msgid "Lower the water level to surface."
+msgstr "Znižajte raven vode za dvig na gladino."
+
+#: ../src/submarine-activity/submarine.c:603
+msgid "Horizontal rudders also called tailplanes."
+msgstr "Vodoravna krmila imenujemo tudi zadnja krilca."
+
+#: ../src/submarine-activity/submarine.c:604
+#: ../src/submarine-activity/submarine.c:619
+msgid "It controls the up and down orientation."
+msgstr "Nadzira usmeritev navzgor in navzdol."
+
+#: ../src/submarine-activity/submarine.c:605
+#: ../src/submarine-activity/submarine.c:620
+msgid "It needs water to flow around them to be effective."
+msgstr "Za njihovo učinkovitost je potreben pretok vode okoli njih."
+
+#: ../src/submarine-activity/submarine.c:618
+msgid "Horizontal rudders also called foreplanes."
+msgstr "Vodoravna krmila imenujemo tudi prednja krilca."
+
+#: ../src/submarine-activity/submarine.c:655
+msgid "Water level in the ballast."
+msgstr "Raven vode v balastu."
+
 #: ../src/submarine-activity/submarine.xml.in.h:1
 msgid "Pilot a submarine"
 msgstr "Upravljanje podmornice"
@@ -9527,11 +9584,12 @@ msgstr "Spoznavanje delovanja podmornice"
 #: ../src/submarine-activity/submarine.xml.in.h:5
 msgid ""
 "Click on different active elements : engine, rudders and air tanks, in order "
-"to navigate to the required depth. There is a close gate on the right. Catch "
-"the jewel to open it, then pass through it to reach the next level."
+"to navigate to the required depth. There is a close gate on the right. After "
+"the first level, your have to catch the jewel to open it. Pass through it to "
+"reach the next level."
 msgstr ""
-"S klikanjem na različne strojne dele podmornice: motor, krmilo in zračne "
-"komore, je treba podmornico zagnati in jo potopiti na želeno globino. Na "
+"S klikanjem na različne strojne dele podmornice: motor, krmila in zračni "
+"zbiralniki, je treba podmornico zagnati in jo potopiti na želeno globino. Na "
 "desni so zaprta vrata. Pobrati je treba potopljen nakit in vrata na "
 "naslednjo raven se bodo odprla."
 
@@ -9930,28 +9988,3 @@ msgstr "Učenje tipkanja"
 #: ../src/wordsgame-activity/wordsgame.xml.in.h:5
 msgid "Type the complete word as it falls, before it reaches the ground"
 msgstr "Natipkaj celo besedo, preden pade na tla"
-
-#~ msgid ""
-#~ " The cow goes \"moo. moo.\" Cows have a memory of about three years. Cows "
-#~ "have many uses, including for milk and meat."
-#~ msgstr ""
-#~ " Krava se oglaša \"muu, muu.\" Krave se spominjajo tri leta nazaj. Krave "
-#~ "so zelo uporabne, človek jih goji zaradi mleka in mesa."
-
-#~ msgid " America"
-#~ msgstr " Amerika"
-
-#~ msgid "sulphur"
-#~ msgstr "žveplene"
-
-#~ msgid "Koweit"
-#~ msgstr "Kuvajt"
-
-#~ msgid "Irak"
-#~ msgstr "Irak"
-
-#~ msgid "354"
-#~ msgstr "354"
-
-#~ msgid "0"
-#~ msgstr "0"

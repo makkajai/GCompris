@@ -80,6 +80,7 @@ static gchar *linguas[] = {
   "ka_GE.UTF-8",	N_("Georgian"),
   "de_DE.UTF-8",	N_("German"),
   "el_GR.UTF-8",	N_("Greek"),
+  "gd_GB.UTF-8",	N_("Scottish Gaelic"),
   "gu_IN.UTF-8",	N_("Gujarati"),
   "he_IL.UTF-8",	N_("Hebrew"),
   "hi_IN.UTF-8",	N_("Hindi"),
@@ -230,11 +231,11 @@ gc_config_start ()
 			     "svg-id", "#REPEAT",
 			     NULL);
     goo_canvas_item_get_bounds(item, &bounds);
-    double zoom = 0.65;
+    double zoom = 0.50;
     goo_canvas_item_scale(item, zoom, zoom);
     goo_canvas_item_translate(item,
-			      (-1 * bounds.x1 + x_flag_start - 340) * zoom,
-			      (-1 * bounds.y1 + y_start - 120) * zoom);
+			      (-1 * bounds.x1 + x_flag_start - 380) * zoom,
+			      (-1 * bounds.y1 + y_start - 145) * zoom);
   g_signal_connect(item, "button_press_event",
 		   (GCallback) item_event_ok,
 		   "locale_reset");
@@ -252,7 +253,7 @@ gc_config_start ()
 					  (gdouble) y_start,
 					  -1,
 					  GTK_ANCHOR_WEST,
-					  "font", gc_skin_font_subtitle,
+					  "font", gc_skin_font_content,
 					  "fill-color-rgba", gc_skin_color_content,
 					  NULL);
 
@@ -277,32 +278,32 @@ gc_config_start ()
 		       (gdouble) y_start,
 		       -1,
 		       GTK_ANCHOR_WEST,
-		       "font", gc_skin_font_subtitle,
+		       "font", gc_skin_font_content,
 		       "fill-color-rgba", gc_skin_color_content,
 		       NULL);
 
-  // Autolevel
+  // Rememberlevel
   y_start += Y_GAP;
 
   item = goo_canvas_svg_new (rootitem,
 			     gc_skin_rsvg_get(),
-			     "svg-id", (properties->autolevel ? pixmap_checked : pixmap_unchecked),
+			     "svg-id", (properties->rememberlevel ? pixmap_checked : pixmap_unchecked),
 			     NULL);
   SET_ITEM_LOCATION(item, x_start, y_start - pixmap_width/2);
 
   g_signal_connect(item, "button_press_event",
 		   (GCallback) item_event_ok,
-		   "autolevel");
+		   "rememberlevel");
   gc_item_focus_init(item, NULL);
 
 
   goo_canvas_text_new (rootitem,
-		       _("Autolevel For Default User"),
+		       _("Remember level for default user"),
 		       (gdouble) x_text_start,
 		       (gdouble) y_start,
 		       -1,
 		       GTK_ANCHOR_WEST,
-		       "font", gc_skin_font_subtitle,
+		       "font", gc_skin_font_content,
 		       "fill-color-rgba", gc_skin_color_content,
 		       NULL);
 
@@ -328,7 +329,7 @@ gc_config_start ()
 		       (gdouble) y_start,
 		       -1,
 		       GTK_ANCHOR_WEST,
-		       "font", gc_skin_font_subtitle,
+		       "font", gc_skin_font_content,
 		       "fill-color-rgba", gc_skin_color_content,
 		       NULL);
 
@@ -353,7 +354,7 @@ gc_config_start ()
 		       (gdouble) y_start,
 		       -1,
 		       GTK_ANCHOR_WEST,
-		       "font", gc_skin_font_subtitle,
+		       "font", gc_skin_font_content,
 		       "fill-color-rgba", gc_skin_color_content,
 		       NULL);
 
@@ -377,7 +378,7 @@ gc_config_start ()
 		       (gdouble) y_start,
 		       -1,
 		       GTK_ANCHOR_WEST,
-		       "font", gc_skin_font_subtitle,
+		       "font", gc_skin_font_content,
 		       "fill-color-rgba", gc_skin_color_content,
 		       NULL);
 
@@ -392,7 +393,7 @@ gc_config_start ()
 					 (gdouble) y_start,
 					 -1,
 					 GTK_ANCHOR_WEST,
-					 "font", gc_skin_font_subtitle,
+					 "font", gc_skin_font_content,
 					 "fill-color-rgba", gc_skin_color_content,
 					 NULL);
 
@@ -451,7 +452,7 @@ gc_config_start ()
 					  (gdouble) y_start,
 					  -1,
 					  GTK_ANCHOR_WEST,
-					  "font", gc_skin_font_subtitle,
+					  "font", gc_skin_font_content,
 					  "fill-color-rgba", gc_skin_color_content,
 					  NULL);
     g_free(first_skin_name);
@@ -472,7 +473,7 @@ gc_config_start ()
 					  400,
 					  GTK_ANCHOR_WEST,
 					  "use-markup", TRUE,
-					  "font", gc_skin_font_subtitle,
+					  "font", gc_skin_font_content,
 					  "fill-color-rgba", gc_skin_color_content,
 					  NULL);
   g_free(text);
@@ -802,11 +803,11 @@ item_event_ok(GooCanvasItem *item,
 	}
       gc_prop_save(properties);
     }
-  else if(!strcmp((char *)data, "autolevel"))
+  else if(!strcmp((char *)data, "rememberlevel"))
     {
-      properties->autolevel = (properties->autolevel ? 0 : 1);
+      properties->rememberlevel = (properties->rememberlevel ? 0 : 1);
       g_object_set(item,
-                   "svg-id", (properties->autolevel ? pixmap_checked : pixmap_unchecked),
+                   "svg-id", (properties->rememberlevel ? pixmap_checked : pixmap_unchecked),
                    NULL);
       gc_item_focus_init(item, NULL);
     }

@@ -115,7 +115,7 @@ static gboolean		gc_debug = FALSE;
 /*** gcompris-popttable */
 static gint popt_fullscreen	   = FALSE;
 static gint popt_window		   = FALSE;
-static gint popt_autolevel        = FALSE;
+static gint popt_rememberlevel     = FALSE;
 static gint popt_sound		   = FALSE;
 static gint popt_mute		   = FALSE;
 static gint popt_cursor		   = FALSE;
@@ -172,11 +172,8 @@ static GOptionEntry options[] = {
   {"difficulty", 'd', 0, G_OPTION_ARG_INT, &popt_difficulty_filter,
    N_("display only activities with this difficulty level."), NULL},
 
-  {"debug", 'D', 0, G_OPTION_ARG_NONE, &popt_debug,
-   N_("display debug informations on the console."), NULL},
-
-  {"version", 'v', 0, G_OPTION_ARG_NONE, &popt_version,
-   N_("Print the version of " PACKAGE), NULL},
+  {"rememberlevel", 'r', '0', G_OPTION_ARG_NONE, &popt_rememberlevel,
+   N_("Return to last passed level even when no user is selected"), NULL},
 
   {"root-menu", 'l', 0, G_OPTION_ARG_STRING, &popt_root_menu,
    N_("Run GCompris with local menu"
@@ -258,8 +255,11 @@ static GOptionEntry options[] = {
   {"test",'\0', 0, G_OPTION_ARG_NONE, &popt_test,
    N_("For test purpose, run in a loop all the activities"), NULL},
 
-  {"autolevel", 'r', '0', G_OPTION_ARG_NONE, &popt_autolevel,
-   N_("For ensuring that even for non-signed in users, last level is remembered"), NULL},
+  {"debug", 'D', 0, G_OPTION_ARG_NONE, &popt_debug,
+   N_("display debug informations on the console."), NULL},
+
+  {"version", 'v', 0, G_OPTION_ARG_NONE, &popt_version,
+   N_("Print the version of " PACKAGE), NULL},
 
   { NULL }
 };
@@ -1673,9 +1673,9 @@ main (int argc, char *argv[])
       properties->fullscreen = FALSE;
     }
 
-  if(popt_autolevel)
+  if(popt_rememberlevel)
     {
-      properties->autolevel = TRUE;
+      properties->rememberlevel = TRUE;
     }
 
   if (popt_mute)

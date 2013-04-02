@@ -161,11 +161,11 @@ gc_prop_new ()
   tmp->disable_quit      = 0;				/* Used to remove the quit button from the bar. Use it for kiosk mode */
   tmp->disable_config    = 0;				/* Used to remove the config button from the bar. Use it for kiosk mode */
   tmp->disable_level     = 0;				/* Used to remove the level button from the bar */
-  tmp->display_resource  = 0;                           /* Used to check whether 
-                                                          autolevel should be 
-                                                          enabled for non-signed 
+  tmp->display_resource  = 0;                           /* Used to check whether
+                                                          rememberlevel should be
+                                                          enabled for non-signed
                                                           in user*/
-  tmp->autolevel         = 0;
+  tmp->rememberlevel     = 0;
   tmp->root_menu         = g_strdup("/");
   tmp->profile           = NULL;
   tmp->logged_user       = NULL;
@@ -391,8 +391,8 @@ gc_prop_load (GcomprisProperties *props, GCPropSourceConf source_conf)
 	} else if(!strcmp(value.v_identifier, "fx")) {
 	  if(!scan_get_int(scanner, &props->fx))
 	    g_warning("Config file parsing error on token %s", token);
-	} else if(!strcmp(value.v_identifier, "autolevel")) {
-	  if(!scan_get_int(scanner, &props->autolevel))
+	} else if(!strcmp(value.v_identifier, "rememberlevel")) {
+	  if(!scan_get_int(scanner, &props->rememberlevel))
 	    g_warning("Config file parsing error on token %s", token);
 	} else if(!strcmp(value.v_identifier, "fullscreen")) {
 	  if(!scan_get_int(scanner, &props->fullscreen))
@@ -573,7 +573,7 @@ gc_prop_save (GcomprisProperties *props)
   fprintf(filefd, "%s=\"%s\"\n", "key",			props->key);
 
   fprintf(filefd, "%s=%d\n", "zoom",			props->zoom);
-  fprintf(filefd, "%s=%d\n", "autolevel",		props->autolevel);
+  fprintf(filefd, "%s=%d\n", "rememberlevel",		props->rememberlevel);
 
   fclose(filefd);
 
