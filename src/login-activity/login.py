@@ -77,7 +77,7 @@ class Gcompris_login:
     self.init_rootitem(self.Prop)
 
     # Get the user list
-    users = []
+    users = ["Roopesh"]
     if self.Prop.profile:
       for group_id in self.Prop.profile.group_ids:
         users.extend( gcompris.admin.get_users_from_group(group_id))

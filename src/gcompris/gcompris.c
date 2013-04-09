@@ -764,7 +764,7 @@ init_workspace()
 static GcomprisBoard *get_board_to_start()
 {
   //Roopesh: We need to login before doing anything. 
-  return  gc_menu_section_get("/login/login");
+  return gc_menu_section_get("/login/login");
 }
 
 static void setup_window ()
@@ -1227,10 +1227,6 @@ static void map_cb (GtkWidget *widget, gpointer data)
 
       if(!board_to_start) {
 	gchar *tmpstr= g_strdup_printf("Couldn't find the board menu %s, or plugin execution error", properties->root_menu);
-	gc_dialog(tmpstr, NULL);
-	g_free(tmpstr);
-      } else if(!gc_board_check_file(board_to_start) || gc_board_is_demo_only(board_to_start) ) {
-	gchar *tmpstr= g_strdup_printf("Couldn't find the board menu, or plugin execution error");
 	gc_dialog(tmpstr, NULL);
 	g_free(tmpstr);
       } else {
