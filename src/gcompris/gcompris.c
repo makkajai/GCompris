@@ -1026,6 +1026,7 @@ activation_done()
     }
 
   gc_board_play( get_board_to_start());
+  printf("test activation_done()");
   goo_canvas_item_remove (activation_item);
 }
 #endif
@@ -1222,18 +1223,30 @@ static void map_cb (GtkWidget *widget, gpointer data)
       properties->menu_board = gc_menu_section_get(properties->root_menu);
       gc_status_close();
 
-
+      printf("Test - map_cb before get_board_to_start()");
       board_to_start = get_board_to_start();
+      printf("Test - map_cb");
 
       if(!board_to_start) {
+        printf("!board_to_start");
 	gchar *tmpstr= g_strdup_printf("Couldn't find the board menu %s, or plugin execution error", properties->root_menu);
 	gc_dialog(tmpstr, NULL);
 	g_free(tmpstr);
+      } else if (!gc_board_check_file(board_to_start)) {
+        gchar *tmpstr= g_strdup_printf("Couldn't find the board menu, or plugin execution error");
+	gc_dialog(tmpstr, NULL);
+	g_free(tmpstr);
       } else {
+        printf("board to start got");
 	g_message("Fine, we got the gcomprisBoardMenu, xml boards parsing went fine");
 	if(!display_activation_dialog())
+        {
+          printf("playing board");
 	  gc_board_play(board_to_start);
+          printf("ended playing board");
+        }
       }
+      printf("board started");
 
     }
   }

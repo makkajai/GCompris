@@ -261,11 +261,9 @@ gc_board_check_file(GcomprisBoard *gcomprisBoard)
   g_free(type);
 
   if(gmodule != NULL) {
-
     g_module_symbol (gmodule, "get_bplugin_info", (gpointer) &plugin_get_bplugin_info);
 
     if(plugin_get_bplugin_info != NULL) {
-
       BoardPlugin *bp;
 
       /* Get the BoardPlugin Info */
@@ -355,7 +353,6 @@ gc_board_play(GcomprisBoard *gcomprisBoard)
 
       /* Force the bar to go on top of the activities canvas items */
       gc_bar_hide (FALSE);
-
       return;
     }
 

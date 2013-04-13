@@ -47,6 +47,7 @@ class Gcompris_login:
 
     self.gcomprisBoard.disable_im_context = True
     self.entry = []
+    self.users = []
 
 
   def start(self):
@@ -64,9 +65,6 @@ class Gcompris_login:
     # Get the default profile
     self.Prop = gcompris.get_properties()
 
-    if not self.Prop:
-      return
-
     # init config to default values
     self.config_dict = self.init_config()
 
@@ -76,18 +74,9 @@ class Gcompris_login:
     # Create and Initialize the rootitem.
     self.init_rootitem(self.Prop)
 
-    # Get the user list
-    users = ["Roopesh"]
-    if self.Prop.profile:
-      for group_id in self.Prop.profile.group_ids:
-        users.extend( gcompris.admin.get_users_from_group(group_id))
+    self.users.extend( gcompris.admin.get_users_list())
 
-    self.users = self.check_unique_id(users)
-
-    if eval(self.config_dict['entry_text']):
-      self.entry_text()
-    else:
-      self.display_user_by_letter(self.users, "")
+    self.display_user_by_letter(self.users, "")
 
 
   def init_rootitem(self, Prop):
@@ -111,20 +100,6 @@ class Gcompris_login:
       font=gcompris.skin.get_font("gcompris/board/small"),
       anchor = gtk.ANCHOR_CENTER
       )
-
-
-  def check_unique_id(self, users):
-    passed = {}
-    for user in users:
-      passed[user.login] = user
-
-    result = []
-    keys = passed.keys()
-    keys.sort()
-    for login in keys:
-      result.append(passed[login])
-
-    return result
 
   def end(self):
 

@@ -227,6 +227,7 @@ py_gc_db_profiles_list_get (PyObject* self, PyObject* args)
 static PyObject*
 py_gc_db_get_users_list (PyObject* self, PyObject* args)
 {
+  printf("here\n");
   GList *users_list;
   GList *list;
   PyObject *pylist;
