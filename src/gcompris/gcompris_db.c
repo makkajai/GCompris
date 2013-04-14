@@ -130,12 +130,6 @@ static sqlite3 *gcompris_db=NULL;
        INSERT INTO sync_status (user_id, from_server_date, to_server_date) VALUES (new.user_id, NULL, NULL); \
      END;"
 
-#define TRIGGER_UPDATE_USERS						\
-  "CREATE TRIGGER update_wholegroup UPDATE OF class_id ON users\
-     BEGIN							   \
-       UPDATE list_users_in_groups SET group_id=(SELECT wholegroup_id FROM class WHERE class_id=new.class_id) WHERE user_id=new.user_id; \
-     END;"
-
 #ifdef USE_SQLITE
 /* Return the user version of the database
  * or -1 if failed. The user version is an sqlite
