@@ -77,6 +77,7 @@ class Gcompris_login:
     self.users.extend( gcompris.admin.get_users_list())
 
     self.display_user_by_letter(self.users, "")
+    self.entry_text()
 
 
   def init_rootitem(self, Prop):
