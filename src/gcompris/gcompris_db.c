@@ -59,6 +59,8 @@ static sqlite3 *gcompris_db=NULL;
   "CREATE TABLE boards (board_id INT UNIQUE, name TEXT, section_id INT, section TEXT, author TEXT, type TEXT, mode TEXT, difficulty INT, icon TEXT, boarddir TEXT, mandatory_sound_file TEXT, mandatory_sound_dataset TEXT, filename TEXT, title TEXT, description TEXT, prerequisite TEXT, goal TEXT, manual TEXT, credit TEXT, demo INT);"
 #define CREATE_TABLE_LOGS						\
   "CREATE TABLE logs (date TEXT, duration INT, user_id INT, board_id INT, level INT, sublevel INT, status INT, comment TEXT);"
+#define CREATE_TABLE_SYNC_STATUS                                        \
+  "CREATE TABLE sync_status(login TEXT, from_server_date TEXT, to_server_date TEXT)"
 
 #define CREATE_TABLE_INFO						\
   "CREATE TABLE informations (gcompris_version TEXT UNIQUE, init_date TEXTUNIQUE, profile_id INT UNIQUE ); "
@@ -126,6 +128,7 @@ static sqlite3 *gcompris_db=NULL;
   "CREATE TRIGGER insert_users INSERT ON users\
      BEGIN								\
        INSERT INTO list_users_in_groups (user_id, group_id) VALUES (new.user_id, (SELECT wholegroup_id FROM class WHERE class_id=new.class_id)); \
+       INSERT INTO sync_status (user_id, from_server_date, to_server_date) VALUES (new.user_id, NULL, NULL); \
      END;"
 
 #define TRIGGER_UPDATE_USERS						\
@@ -250,6 +253,10 @@ static void _create_db()
     g_error("SQL error: %s\n", zErrMsg);
   }
   rc = sqlite3_exec(gcompris_db,CREATE_TABLE_LOGS, NULL,  0, &zErrMsg);
+  if( rc!=SQLITE_OK ){
+    g_error("SQL error: %s\n", zErrMsg);
+  }
+  rc = sqlite3_exec(gcompris_db,CREATE_TABLE_SYNC_STATUS, NULL,  0, &zErrMsg);
   if( rc!=SQLITE_OK ){
     g_error("SQL error: %s\n", zErrMsg);
   }
