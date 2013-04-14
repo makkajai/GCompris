@@ -127,7 +127,6 @@ static sqlite3 *gcompris_db=NULL;
 #define TRIGGER_INSERT_USERS						\
   "CREATE TRIGGER insert_users INSERT ON users\
      BEGIN								\
-       INSERT INTO list_users_in_groups (user_id, group_id) VALUES (new.user_id, (SELECT wholegroup_id FROM class WHERE class_id=new.class_id)); \
        INSERT INTO sync_status (user_id, from_server_date, to_server_date) VALUES (new.user_id, NULL, NULL); \
      END;"
 
