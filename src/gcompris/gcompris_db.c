@@ -2236,3 +2236,113 @@ int get_last_played_level(int user_id, int board_id)
 
   return level;
 }
+
+#define GET_FROM_SERVER_DATE(login)                                                   \
+         "select from_server_date from sync_status where login = \'%s\'", login
+*gchar get_from_server_date(gchar *login)
+{
+  char **result;
+  int nrow;
+  int ncolumn;
+  char *zErrMsg;
+  int rc;
+  gchar *request;
+
+  request = sqlite3_mprintf(GET_FROM_SERVER_DATE(login));
+
+  rc = sqlite3_get_table(gcompris_db,
+			 request,
+			 &result,
+			 &nrow,
+			 &ncolumn,
+			 &zErrMsg
+			 );
+
+  if(nrow == 0)
+  {
+    sqlite3_free_table(result);
+    return -1;
+  }
+
+  *gchar date = result[1];  //expect only one row and one column
+
+  sqlite3_free_table(result);
+
+  return date;
+}
+
+#define GET_TO_SERVER_DATE(login)                                                   \
+         "select to_server_date from sync_status where login = \'%s\'", login
+*gchar get_to_server_date(gchar *login)
+{
+  char **result;
+  int nrow;
+  int ncolumn;
+  char *zErrMsg;
+  int rc;
+  gchar *request;
+
+  request = sqlite3_mprintf(GET_TO_SERVER_DATE(login));
+
+  rc = sqlite3_get_table(gcompris_db,
+			 request,
+			 &result,
+			 &nrow,
+			 &ncolumn,
+			 &zErrMsg
+			 );
+
+  if(nrow == 0)
+  {
+    sqlite3_free_table(result);
+    return -1;
+  }
+
+  *gchar date = result[1];
+
+  sqlite3_free_table(result);
+
+  return date;
+}
+
+#define UPDATE_FROM_SERVER_DATE(login,date)                                    \
+         "update sync_status set from_server_date = '\%s'\ where login = '\%s'\;", date, login
+void update_from_server_date(gchar *login, gchar *date)
+{
+  char **result;
+  char *zErrMsg;
+  int rc;
+  gchar *request;
+
+  request = sqlite3_mprintf( UPDATE_FROM_SERVER_DATE(login, date));
+
+  rc = sqlite3_exec(gcompris_db, request, NULL,  0, &zErrMsg);
+  if( rc!=SQLITE_OK ){
+    g_error("SQL error: %s\n", zErrMsg);
+  }
+}
+
+#define UPDATE_TO_SERVER_DATE(login,date)                                    \
+         "update sync_status set to_server_date = '\%s'\ where login = '\%s'\;", date, login
+void update_to_server_date(gchar *login, gchar *date)
+{
+  char **result;
+  char *zErrMsg;
+  int rc;
+  gchar *request;
+
+  request = sqlite3_mprintf(UPDATE_TO_SERVER_DATE(login, date));
+
+  rc = sqlite3_exec(gcompris_db, request, NULL,  0, &zErrMsg);
+  if( rc!=SQLITE_OK ){
+    g_error("SQL error: %s\n", zErrMsg);
+  }
+}
+
+*glist get_logs_data()
+{
+}
+
+void update_logs_data(glist *log_data)
+{
+}
