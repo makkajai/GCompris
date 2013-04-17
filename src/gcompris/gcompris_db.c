@@ -275,10 +275,6 @@ static void _create_db()
   if( rc!=SQLITE_OK ){
     g_error("SQL error: %s\n", zErrMsg);
   }
-  rc = sqlite3_exec(gcompris_db,TRIGGER_UPDATE_USERS, NULL,  0, &zErrMsg);
-  if( rc!=SQLITE_OK ){
-    g_error("SQL error: %s\n", zErrMsg);
-  }
 
   g_message("Database tables created");
 
@@ -2208,7 +2204,6 @@ int get_last_played_level(int user_id, int board_id)
   int nrow;
   int ncolumn;
   char *zErrMsg;
-  int rc;
   gchar *request;
 
   request = sqlite3_mprintf( GET_LAST_PLAYED_LEVEL,
@@ -2216,7 +2211,7 @@ int get_last_played_level(int user_id, int board_id)
                              board_id
 			     );
 
-  rc = sqlite3_get_table(gcompris_db,
+  sqlite3_get_table(gcompris_db,
 			 request,
 			 &result,
 			 &nrow,
@@ -2238,7 +2233,7 @@ int get_last_played_level(int user_id, int board_id)
 }
 
 #define GET_FROM_SERVER_DATE(login)                                                   \
-         "select from_server_date from sync_status where login = \'%s\'", login
+         "select from_server_date from sync_status where login = \'%s\';", login
 gchar * 
 get_from_server_date(gchar *login)
 {
@@ -2246,12 +2241,11 @@ get_from_server_date(gchar *login)
   int nrow;
   int ncolumn;
   char *zErrMsg;
-  int rc;
   gchar *request;
 
   request = sqlite3_mprintf(GET_FROM_SERVER_DATE(login));
 
-  rc = sqlite3_get_table(gcompris_db,
+  sqlite3_get_table(gcompris_db,
 			 request,
 			 &result,
 			 &nrow,
@@ -2273,7 +2267,7 @@ get_from_server_date(gchar *login)
 }
 
 #define GET_TO_SERVER_DATE(login)                                                   \
-         "select to_server_date from sync_status where login = \'%s\'", login
+         "select to_server_date from sync_status where login = \'%s\';", login
 gchar * 
 get_to_server_date(gchar *login)
 {
@@ -2281,12 +2275,11 @@ get_to_server_date(gchar *login)
   int nrow;
   int ncolumn;
   char *zErrMsg;
-  int rc;
   gchar *request;
 
   request = sqlite3_mprintf(GET_TO_SERVER_DATE(login));
 
-  rc = sqlite3_get_table(gcompris_db,
+  sqlite3_get_table(gcompris_db,
 			 request,
 			 &result,
 			 &nrow,
@@ -2342,8 +2335,8 @@ void update_to_server_date(gchar *login, gchar *date)
 }
 
 #define GET_LOGS_DATA(login, date)                                             \
-          "select date, duration, user_id, board_id, level, sublevel, status, comment from logs where login = \'%s\' and date > \'%s\', login, date               
-GList get_logs_data(gchar *login, gchar *date)
+          "select date, duration, user_id, board_id, level, sublevel, status, comment from logs where login = \'%s\' and date > \'%s\';", login, date               
+GList * get_logs_data(gchar *login, gchar *date)
 {
   char **result;
   int nrow;
@@ -2353,6 +2346,7 @@ GList get_logs_data(gchar *login, gchar *date)
   gchar *request;
   GList *logs_list = NULL;
   GcomprisLog *log = NULL;
+  int i;
 
   request = sqlite3_mprintf(GET_LOGS_DATA(login, date));
 
@@ -2397,5 +2391,14 @@ GList get_logs_data(gchar *login, gchar *date)
 
 void add_logs_data(GList *log_data)
 {
+  GList *list;
   /* for each in the GList, call add log record */
+  for (list = log_data; list != NULL; list = list->next)
+  {
+     GcomprisLog *item = (GcomprisLog *)list->data;
+     gc_db_log(item->date, item->duration,
+		   item->user_id, item->board_id,
+		   item->level, item->sublevel,
+		   item->status, item->comment);
+  }
 }

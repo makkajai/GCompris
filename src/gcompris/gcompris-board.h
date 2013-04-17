@@ -98,5 +98,5 @@ struct _GcomprisLog
   int sublevel;
   int status;
   gchar *comment;
-}
+};
 #endif
