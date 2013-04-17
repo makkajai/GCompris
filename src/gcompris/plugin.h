@@ -23,6 +23,9 @@
 /* Forward declaration of GcomprisBoard */
 typedef struct _GcomprisBoard         GcomprisBoard;
 
+/*Forward declaration of Log */
+typedef struct _GcomprisLog         GcomprisLog;
+
 /* Return 1 if the board plugin can handle this board */
 typedef	gboolean      (*GcomprisIsOurBoard)   (GcomprisBoard *gcomprisBoard);
 

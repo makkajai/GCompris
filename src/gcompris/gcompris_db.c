@@ -2351,6 +2351,7 @@ GList get_logs_data(gchar *login, gchar *date)
   char *zErrMsg;
   int rc;
   gchar *request;
+  GList *logs_list = NULL;
 
   request = sqlite3_mprintf(GET_LOGS_DATA(login, date));
 
@@ -2362,17 +2363,34 @@ GList get_logs_data(gchar *login, gchar *date)
 			 &zErrMsg
 			 );
 
-  if(nrow == 0)
-  {
+
+  if( rc!=SQLITE_OK ){
+    g_error("SQL error: %s\n", zErrMsg);
+  }
+
+  if (nrow == 0){
     sqlite3_free_table(result);
-    return -1;
+    g_message("No groups !");
+  } else {
+    i = ncolumn;
+
+    while ( i < (nrow +1)*ncolumn) {
+      class = g_malloc0(sizeof(GcomprisLog));
+
+      class->class_id =  atoi(result[i++]);
+      class->name = g_strdup(result[i++]);
+      class->description = g_strdup(result[i++]);
+      class->wholegroup_id = atoi(result[i++]);
+
+      classes_list = g_list_append(classes_list, class);
+    }
   }
 
   /*For each row, create a log record*/
 
   sqlite3_free_table(result);
 
-  return logs;
+  return logs_list;
 }
 
 void add_logs_data(GList *log_data)

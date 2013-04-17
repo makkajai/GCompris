@@ -85,7 +85,18 @@ struct _GcomprisBoard
   gboolean	       demo;
 };
 
+/*****************************************************************************/
+/* The following structure describes a log object.  */
 
-
-
+struct _GcomprisLog
+{
+  gchar *date;
+  int duration;
+  int user_id;
+  int board_id;
+  int level;
+  int sublevel;
+  int status;
+  gchar *comment;
+}
 #endif
