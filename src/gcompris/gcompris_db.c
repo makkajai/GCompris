@@ -2239,7 +2239,8 @@ int get_last_played_level(int user_id, int board_id)
 
 #define GET_FROM_SERVER_DATE(login)                                                   \
          "select from_server_date from sync_status where login = \'%s\'", login
-*gchar get_from_server_date(gchar *login)
+gchar * 
+get_from_server_date(gchar *login)
 {
   char **result;
   int nrow;
@@ -2264,7 +2265,7 @@ int get_last_played_level(int user_id, int board_id)
     return -1;
   }
 
-  *gchar date = result[1];  //expect only one row and one column
+  gchar *date = result[1];  //expect only one row and one column
 
   sqlite3_free_table(result);
 
@@ -2273,7 +2274,8 @@ int get_last_played_level(int user_id, int board_id)
 
 #define GET_TO_SERVER_DATE(login)                                                   \
          "select to_server_date from sync_status where login = \'%s\'", login
-*gchar get_to_server_date(gchar *login)
+gchar * 
+get_to_server_date(gchar *login)
 {
   char **result;
   int nrow;
@@ -2298,7 +2300,7 @@ int get_last_played_level(int user_id, int board_id)
     return -1;
   }
 
-  *gchar date = result[1];
+  gchar *date = result[1];
 
   sqlite3_free_table(result);
 
@@ -2322,7 +2324,7 @@ void update_from_server_date(gchar *login, gchar *date)
   }
 }
 
-#define UPDATE_TO_SERVER_DATE(login,date)                                    \
+#define UPDATE_TO_SERVER_DATE(login, date)                                    \
          "update sync_status set to_server_date = '\%s'\ where login = '\%s'\;", date, login
 void update_to_server_date(gchar *login, gchar *date)
 {
@@ -2339,10 +2341,41 @@ void update_to_server_date(gchar *login, gchar *date)
   }
 }
 
-*glist get_logs_data()
+#define GET_LOGS_DATA(login, date)                                             \
+          "select date, duration, user_id, board_id, level, sublevel, status, comment from logs where login = \'%s\' and date > \'%s\', login, date               
+GList get_logs_data(gchar *login, gchar *date)
 {
+  char **result;
+  int nrow;
+  int ncolumn;
+  char *zErrMsg;
+  int rc;
+  gchar *request;
+
+  request = sqlite3_mprintf(GET_LOGS_DATA(login, date));
+
+  rc = sqlite3_get_table(gcompris_db,
+			 request,
+			 &result,
+			 &nrow,
+			 &ncolumn,
+			 &zErrMsg
+			 );
+
+  if(nrow == 0)
+  {
+    sqlite3_free_table(result);
+    return -1;
+  }
+
+  /*For each row, create a log record*/
+
+  sqlite3_free_table(result);
+
+  return logs;
 }
 
-void update_logs_data(glist *log_data)
+void add_logs_data(GList *log_data)
 {
+  /* for each in the GList, call add log record */
 }
