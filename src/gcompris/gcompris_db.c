@@ -2352,6 +2352,7 @@ GList get_logs_data(gchar *login, gchar *date)
   int rc;
   gchar *request;
   GList *logs_list = NULL;
+  GcomprisLog *log = NULL;
 
   request = sqlite3_mprintf(GET_LOGS_DATA(login, date));
 
@@ -2374,20 +2375,21 @@ GList get_logs_data(gchar *login, gchar *date)
   } else {
     i = ncolumn;
 
+    /*For each row, create a log record*/
     while ( i < (nrow +1)*ncolumn) {
-      class = g_malloc0(sizeof(GcomprisLog));
+      log = g_malloc0(sizeof(GcomprisLog));
 
-      class->class_id =  atoi(result[i++]);
-      class->name = g_strdup(result[i++]);
-      class->description = g_strdup(result[i++]);
-      class->wholegroup_id = atoi(result[i++]);
-
-      classes_list = g_list_append(classes_list, class);
+      log->date =  g_strdup(result[i++]);
+      log->duration = atoi(result[i++]);
+      log->user_id = atoi(result[i++]);
+      log->board_id = atoi(result[i++]);
+      log->level = atoi(result[i++]);
+      log->sublevel = atoi(result[i++]);
+      log->status = atoi(result[i++]);
+      log->comment = g_strdup(result[i++]);
+      logs_list = g_list_append(logs_list, log);
     }
   }
-
-  /*For each row, create a log record*/
-
   sqlite3_free_table(result);
 
   return logs_list;
