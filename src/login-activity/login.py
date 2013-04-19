@@ -461,8 +461,8 @@ class Gcompris_login:
       json_data = u.read()
       user = json.loads(json_data)
 
-      #try:
-      if user["Login"] == text:
+      try:
+        if user["Login"] == text:
           # if it returns something, then save the user and call enter_callback again
           self.cur.execute("insert into users (user_id, login, firstname, lastname) values (" + 
                             str(self.get_next_user_id()) + ", '" + user["Login"] + "','" + 
@@ -472,10 +472,10 @@ class Gcompris_login:
           self.users = []
           self.users.extend( gcompris.admin.get_users_list())
           self.enter_callback(widget)
-      else:
+        else:
           widget.set_text('')
-      #except:
-          #widget.set_text('some error')
+      except:
+        widget.set_text('')
 
   def config_start(self, profile):
     # keep profile in mind
