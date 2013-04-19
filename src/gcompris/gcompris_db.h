@@ -126,4 +126,17 @@ gboolean gc_db_log(gchar *date, int duration,
 /*Use mainly for getting last played level for a particular board and user*/
 int get_last_played_level(int user_id, int board_id);
 
+/*Used mainly for keeping log data in sync with the remote log service*/
+gchar *get_from_server_date(gchar *login);
+
+gchar *get_to_server_date(gchar *login);
+
+void update_from_server_date(gchar *login, gchar *date);
+
+void update_to_server_date(gchar *login, gchar *date);
+
+GList * get_logs_data(gchar *login, gchar *date);
+
+void add_logs_data(GList *log_data);
+
 #endif

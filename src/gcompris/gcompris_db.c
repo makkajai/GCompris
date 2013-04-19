@@ -127,7 +127,7 @@ static sqlite3 *gcompris_db=NULL;
 #define TRIGGER_INSERT_USERS						\
   "CREATE TRIGGER insert_users INSERT ON users\
      BEGIN								\
-       INSERT INTO sync_status (user_id, from_server_date, to_server_date) VALUES (new.user_id, NULL, NULL); \
+       INSERT INTO sync_status (login, from_server_date, to_server_date) VALUES (new.login, NULL, NULL); \
      END;"
 
 #ifdef USE_SQLITE

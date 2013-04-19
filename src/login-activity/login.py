@@ -23,9 +23,23 @@ import gcompris.admin
 import gtk
 import gtk.gdk
 import pango
+import urllib
+import json
 from gcompris import gcompris_gettext as _
 
 import math
+
+# Database
+try:
+  from sqlite3 import dbapi2 as sqlite # python 2.5
+except:
+  try:
+    from pysqlite2 import dbapi2 as sqlite
+  except:
+    print 'This program requires pysqlite2\n',\
+        'http://initd.org/tracker/pysqlite/'
+    sys.exit(1)
+
 
 # Background screens
 backgrounds = [
@@ -48,6 +62,9 @@ class Gcompris_login:
     self.gcomprisBoard.disable_im_context = True
     self.entry = []
     self.users = []
+    # Connect to our database
+    self.con = sqlite.connect(gcompris.get_database())
+    self.cur = self.con.cursor()
 
 
   def start(self):
@@ -432,8 +449,33 @@ class Gcompris_login:
         self.logon(user)
         found = True
 
+    # if not found, make a call to the web service to check whether the user
+    # exists in the backend service
     if not found:
-      widget.set_text('')
+      # check if the user is present in the background service
+      # make a call to 192.168.1.4/GComprisBackend/students/{userid}
+      
+      url = 'http://192.168.1.4/GComprisBackend/students/' + text + '?format=json'
+      u = urllib.urlopen(url)
+      # u is a file-like object
+      json_data = u.read()
+      user = json.loads(json_data)
+
+      #try:
+      if user["Login"] == text:
+          # if it returns something, then save the user and call enter_callback again
+          self.cur.execute("insert into users (user_id, login, firstname, lastname) values (" + 
+                            str(self.get_next_user_id()) + ", '" + user["Login"] + "','" + 
+                            user["FirstName"] + "','" + user["LastName"] + "')")
+          self.con.commit()
+          #refresh the list
+          self.users = []
+          self.users.extend( gcompris.admin.get_users_list())
+          self.enter_callback(widget)
+      else:
+          widget.set_text('')
+      #except:
+          #widget.set_text('some error')
 
   def config_start(self, profile):
     # keep profile in mind
@@ -473,6 +515,17 @@ class Gcompris_login:
                                         'entry_text',
                                         eval(self.config_dict['entry_text'])
                                         )
+
+
+  # Return the next user id
+  def get_next_user_id(self):
+    self.cur.execute('select max(user_id) from users')
+    user_id = self.cur.fetchone()[0]
+    if(user_id == None):
+      user_id=0
+    
+    user_id += 1
+    return user_id
 
 
   def config_stop(self):
