@@ -2021,7 +2021,8 @@ GList *gc_db_get_users_list()
       user->firstname = g_strdup(result[i++]);
       user->lastname = g_strdup(result[i++]);
       user->birthdate = g_strdup(result[i++]);
-      user->class_id = atoi(result[i++]);
+      i++;
+      //user->class_id = atoi(result[i++]);
 
       users_list = g_list_append(users_list, user);
     }
