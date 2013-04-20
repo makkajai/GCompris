@@ -106,6 +106,7 @@ pyGcomprisPropertiesType_getattr(pyGcomprisPropertiesObject *self, char *name)
     if(strcmp(name,"package_python_plugin_dir")==0) return Py_BuildValue("s", self->cdata->package_python_plugin_dir);
     if(strcmp(name,"locale")==0) return Py_BuildValue("s", self->cdata->locale);
     if(strcmp(name,"skin")==0) return Py_BuildValue("s", self->cdata->skin);
+    if(strcmp(name,"backendurl")==0) return Py_BuildValue("s", self->cdata->backendurl);
     if(strcmp(name,"config_dir")==0) return Py_BuildValue("s", self->cdata->config_dir);
     if(strcmp(name,"user_dir")==0) return Py_BuildValue("s", self->cdata->user_dir);
 

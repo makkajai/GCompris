@@ -453,9 +453,9 @@ class Gcompris_login:
     # exists in the backend service
     if not found:
       # check if the user is present in the background service
-      # make a call to 192.168.1.4/GComprisBackend/students/{userid}
+      # make a call to /students/{userid}
       
-      url = 'http://192.168.1.4/GComprisBackend/students/' + text + '?format=json'
+      url =  self.Prop.backendurl + 'students/' + text + '?format=json'
       u = urllib.urlopen(url)
       # u is a file-like object
       json_data = u.read()

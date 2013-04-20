@@ -166,6 +166,7 @@ gc_prop_new ()
                                                           enabled for non-signed
                                                           in user*/
   tmp->rememberlevel     = 0;
+  tmp->backendurl        = g_strdup("http://www.gcomprisbackend.com/api/"); //used for backend services - change this to something correct later
   tmp->root_menu         = g_strdup("/");
   tmp->profile           = NULL;
   tmp->logged_user       = NULL;
@@ -420,6 +421,11 @@ gc_prop_load (GcomprisProperties *props, GCPropSourceConf source_conf)
 	  props->skin = scan_get_string(scanner);
 	  if(!props->skin)
 	    g_warning("Config file parsing error on token %s", token);
+	} else if(!strcmp(value.v_identifier, "backendurl")) {
+          g_free(props->backendurl);
+          props->backendurl = scan_get_string(scanner);
+	  if(!props->backendurl)
+	    g_warning("Config file parsing error on token %s", token);
 	} else if(!strcmp(value.v_identifier, "user_dir")) {
 	  g_free(props->user_dir);
 	  props->user_dir = scan_get_string(scanner);
@@ -546,6 +552,8 @@ gc_prop_destroy (GcomprisProperties *props)
   g_free(props->config_dir);
   g_free(props->user_dir);
   g_free(props->root_menu);
+  g_free(props->rememberlevel);
+  g_free(props->backendurl);
   g_free(props);
 }
 
@@ -574,6 +582,7 @@ gc_prop_save (GcomprisProperties *props)
 
   fprintf(filefd, "%s=%d\n", "zoom",			props->zoom);
   fprintf(filefd, "%s=%d\n", "rememberlevel",		props->rememberlevel);
+  fprintf(filefd, "%s=\"%s\"\n", "backendurl",		props->backendurl);
 
   fclose(filefd);
 
