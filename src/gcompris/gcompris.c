@@ -1237,9 +1237,7 @@ static void map_cb (GtkWidget *widget, gpointer data)
 	g_message("Fine, we got the gcomprisBoardMenu, xml boards parsing went fine");
 	if(!display_activation_dialog())
         {
-          printf("playing board");
 	  gc_board_play(board_to_start);
-          printf("ended playing board");
         }
       }
     }
