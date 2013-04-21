@@ -306,6 +306,7 @@ void
 gc_board_play(GcomprisBoard *gcomprisBoard)
 {
   BoardPlugin *bp;
+  GcomprisBoard *sync_board; 
 
   g_assert(gcomprisBoard!=NULL);
 
@@ -313,6 +314,13 @@ gc_board_play(GcomprisBoard *gcomprisBoard)
 
   if(gcomprisBoard->plugin!=NULL)
     {
+      //sync whenever we reach main menu
+      if(strcmp("Main Menu Second Version", gcomprisBoard->plugin->name) == 0)
+      {
+      //before doing anything else Synchronize the data with the backend service by calling the sync activity
+        sync_board = gc_menu_section_get("/sync/synchronization");
+        sync_start(sync_board);
+      }
       /* Log the board start */
       gc_log_start(gcomprisBoard);
 
@@ -375,7 +383,6 @@ gc_board_pause(int pause)
 void
 gc_board_stop(void)
 {
-  GcomprisBoard *sync_board;
   if (! bp_data)
     return;
 
@@ -384,16 +391,23 @@ gc_board_stop(void)
       bp_data->playing = FALSE;
 
       if (gc_board_get_current_board_plugin()->end_board)
-	gc_board_get_current_board_plugin()->end_board();
+      {
+        gc_board_get_current_board_plugin()->end_board();
+      }
 
       gc_board_end();
-
-      //Synchronize the data with the backend service by calling the sync activity
-      sync_board = gc_menu_section_get("/sync/synchronization");
-      gc_board_play(sync_board);
       return;
     }
   bp_data->playing = FALSE;
+}
+
+void 
+sync_start(GcomprisBoard *sync_board)
+{
+   gc_board_check_file(sync_board);
+   BoardPlugin *bp;
+   bp = sync_board->plugin;
+   bp->start_board(sync_board); //this board ends itself, so don't call gc_board_play() on it
 }
 
 static gboolean
