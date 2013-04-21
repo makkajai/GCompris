@@ -375,6 +375,7 @@ gc_board_pause(int pause)
 void
 gc_board_stop(void)
 {
+  GcomprisBoard *sync_board;
   if (! bp_data)
     return;
 
@@ -387,6 +388,9 @@ gc_board_stop(void)
 
       gc_board_end();
 
+      //Synchronize the data with the backend service by calling the sync activity
+      sync_board = gc_menu_section_get("/sync/synchronization");
+      gc_board_play(sync_board);
       return;
     }
   bp_data->playing = FALSE;

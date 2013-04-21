@@ -453,7 +453,7 @@ class Gcompris_login:
     # exists in the backend service
     if not found:
       # check if the user is present in the background service
-      # make a call to /students/{userid}
+      # make a call to /students/{login}
       
       url =  self.Prop.backendurl + 'students/' + text + '?format=json'
       u = urllib.urlopen(url)

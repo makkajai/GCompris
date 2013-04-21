@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GCompris>
+  <Board
+        name="synchronization"
+        type="python:synchronization"
+        section="/sync"
+        icon="synchronization.svg"
+        difficulty="1"
+        author="Roopesh Shenoy"
+        boarddir=""
+        >
+        <_title>synchronization</_title>
+        <_description>synchronization</_description>
+        <_prerequisite>synchronization</_prerequisite>
+        <_goal>synchronization</_goal>
+        <_manual>synchronization</_manual>
+        <_credit>synchronization</_credit>
+  </Board>
+  <Data directory=""/>
+</GCompris>

@@ -1223,12 +1223,9 @@ static void map_cb (GtkWidget *widget, gpointer data)
       properties->menu_board = gc_menu_section_get(properties->root_menu);
       gc_status_close();
 
-      printf("Test - map_cb before get_board_to_start()");
       board_to_start = get_board_to_start();
-      printf("Test - map_cb");
 
       if(!board_to_start) {
-        printf("!board_to_start");
 	gchar *tmpstr= g_strdup_printf("Couldn't find the board menu %s, or plugin execution error", properties->root_menu);
 	gc_dialog(tmpstr, NULL);
 	g_free(tmpstr);
@@ -1237,7 +1234,6 @@ static void map_cb (GtkWidget *widget, gpointer data)
 	gc_dialog(tmpstr, NULL);
 	g_free(tmpstr);
       } else {
-        printf("board to start got");
 	g_message("Fine, we got the gcomprisBoardMenu, xml boards parsing went fine");
 	if(!display_activation_dialog())
         {
@@ -1246,8 +1242,6 @@ static void map_cb (GtkWidget *widget, gpointer data)
           printf("ended playing board");
         }
       }
-      printf("board started");
-
     }
   }
 
