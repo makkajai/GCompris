@@ -81,7 +81,7 @@ static void single_instance_release();
 /*
  * For the Activation dialog
  */
-#ifdef ACTIVATION_CODE
+/*#ifdef ACTIVATION_CODE
 int gc_activation_check(const char *code);
 static void activation_enter_callback(GtkWidget *widget,
 				      GtkWidget *entry );
@@ -89,9 +89,9 @@ static void activation_done();
 static int display_activation_dialog();
 static GooCanvasItem *activation_item;
 static GtkWidget *widget_activation_entry;
-#else
+#else*/
 #define display_activation_dialog() FALSE
-#endif
+/*#endif*/
 
 
 static GcomprisProperties *properties = NULL;
