@@ -41,11 +41,11 @@ DEFINES += 	-DHAVE_CONFIG_H
 
 ifneq ($(CROSSCOMPILER),)
 	# CROSS COMPILATION
-	LOCAL_PREFIX:=/home/bruno/Projets/gcompris/windows
+	LOCAL_PREFIX:=/home/roopesh/Dev/GCompris/windows
 	MAKENSIS:=makensis
 else
 	# MSYS CASE
-	LOCAL_PREFIX:=/X
+	LOCAL_PREFIX:=/C
 	MAKENSIS:="/c/Program Files/NSIS/makensis.exe"
 endif
 
