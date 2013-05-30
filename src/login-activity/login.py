@@ -22,6 +22,7 @@ import gcompris.skin
 import gcompris.admin
 import gtk
 import gtk.gdk
+import datetime
 import pango
 import urllib
 import json
@@ -383,6 +384,7 @@ class Gcompris_login:
   #
   def name_click_event(self, widget, target, event, user):
     if event.type == gtk.gdk.BUTTON_PRESS:
+      self.get_logs_from_server(user)
       self.logon(user)
       return True
 
@@ -446,6 +448,7 @@ class Gcompris_login:
         login = user.login
       if text == login:
         self.widget.remove()
+        self.get_logs_from_server(user)
         self.logon(user)
         found = True
 
@@ -537,3 +540,31 @@ class Gcompris_login:
     for key,value in table.iteritems():
       gcompris.set_board_conf(self.configuring_profile, self.gcomprisBoard, key, value)
     return True
+
+
+  def get_logs_from_server(self, user):
+    # GET from logs/{login}?Date=date (date is optional)
+    url =  self.Prop.backendurl + 'logs/' + user.login + '?format=json'
+
+    self.cur.execute("select from_server_date from sync_status where login = '"+user.login+"'");
+    sync_status_data = self.cur.fetchall();
+    for sync_status_row in sync_status_data:
+      from_server_date = sync_status_row[0]
+
+    if from_server_date is not None :
+      url = url + '&fromDate=' + from_server_date
+
+    u = urllib.urlopen(url)
+    json_data = u.read()
+    logs = json.loads(json_data)
+    print json_data
+
+    for log in logs:
+      self.cur.execute("insert into logs (date, duration, user_id, board_id, level, sublevel, status) values (" + 
+                        "'" + str(log["Date"]) + "'," + str(log["Duration"]) + "," + str(user.user_id) + 
+                        ", (select board_id from boards where name = '" + log["BoardName"] + "')," 
+                        + str(log["Level"]) + "," + str(log["SubLevel"]) + "," + str(log["Status"]) + ")")
+
+    self.cur.execute("update sync_status set from_server_date = '" + str(datetime.datetime.now()) + "' where login = '" + user.login + "'")
+    self.con.commit()
+    self.end()

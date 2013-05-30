@@ -101,7 +101,9 @@ class Gcompris_synchronization:
       response = f.read()
       f.close()
 
-      self.cur.execute("update sync_status set to_server_date = '" + str(datetime.datetime.now()) + "' where login = '" + self.user.login + "'");
+      self.cur.execute("update sync_status set to_server_date = '" + str(datetime.datetime.now()) + 
+                       "', from_server_date = '" + str(datetime.datetime.now()) + # this is to ensure that same records don't come back
+                       "' where login = '" + self.user.login + "'");
       self.con.commit();
       self.end();
 
