@@ -563,7 +563,7 @@ class Gcompris_login:
 
     for log in logs:
       self.cur.execute("insert into logs (date, duration, user_id, board_id, level, sublevel, status) values (" + 
-                        "'" + str(log["Date"]) + "'," + str(log["Duration"]) + "," + str(user.user_id) + 
+                        "'" + log["FormattedDate"] + "'," + str(log["Duration"]) + "," + str(user.user_id) + 
                         ", (select board_id from boards where name = '" + log["BoardName"] + "')," 
                         + str(log["Level"]) + "," + str(log["SubLevel"]) + "," + str(log["Status"]) + ")")
 
