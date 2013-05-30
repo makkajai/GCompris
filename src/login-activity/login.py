@@ -552,6 +552,8 @@ class Gcompris_login:
       from_server_date = sync_status_row[0]
 
     if from_server_date is not None :
+      # remove the micro seconds, it creates problem
+      from_server_date = datetime.datetime.strftime(datetime.datetime.strptime(from_server_date, '%Y-%m-%d %H:%M:%S.%f'), '%Y-%m-%d %H:%M:%S')
       url = url + '&fromDate=' + from_server_date
 
     u = urllib.urlopen(url)
