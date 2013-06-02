@@ -384,7 +384,11 @@ class Gcompris_login:
   #
   def name_click_event(self, widget, target, event, user):
     if event.type == gtk.gdk.BUTTON_PRESS:
-      self.get_logs_from_server(user)
+      try:
+        self.get_logs_from_server(user)
+      except:
+        print "error in getting logs"
+
       self.logon(user)
       return True
 
@@ -448,7 +452,10 @@ class Gcompris_login:
         login = user.login
       if text == login:
         self.widget.remove()
-        self.get_logs_from_server(user)
+        try:
+          self.get_logs_from_server(user)
+        except:
+          print "error in getting logs"
         self.logon(user)
         found = True
 
