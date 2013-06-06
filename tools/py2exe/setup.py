@@ -15,7 +15,7 @@ setup(
     options = {
                   'py2exe': {
                       'packages':'encodings',
-                      'includes': 'cairo, pango, pangocairo, atk, gobject, sqlite3',
+                      'includes': 'cairo, pango, pangocairo, atk, gobject, sqlite3, json',
                   }
               },
 

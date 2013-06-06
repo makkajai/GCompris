@@ -24,6 +24,10 @@ import gobject
 import uuid
 import ConfigParser
 import gio
+import json
+import urllib
+import urllib2
+import datetime
 from sqlite3 import dbapi2 as sqlite
 
 print "Hello gcompris world now"
