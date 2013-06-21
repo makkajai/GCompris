@@ -62,6 +62,7 @@ class Gcompris_login:
 
     self.gcomprisBoard.disable_im_context = True
     self.entry = []
+    self.go = []
     self.users = []
     # Connect to our database
     self.con = sqlite.connect(gcompris.get_database())
@@ -96,6 +97,7 @@ class Gcompris_login:
 
     self.display_user_by_letter(self.users, "")
     self.entry_text()
+    self.go_button()
 
 
   def init_rootitem(self, Prop):
@@ -436,13 +438,38 @@ class Gcompris_login:
 
     self.entry.grab_focus()
 
+  def go_button(self):
+    self.go = gtk.Button()
+
+    self.go.modify_font(pango.FontDescription("sans bold 36"))
+    self.go.set_label("GO")
+
+    bg_color = gtk.gdk.color_parse("blue")
+    self.go.modify_base(gtk.STATE_NORMAL, bg_color)
+    self.go.connect("clicked", self.enter_callback)
+
+    self.widget2 = goocanvas.Widget(
+      parent = self.rootitem,
+      widget=self.go,
+      x=650,
+      y=400,
+      width=50,
+      height=50,
+      anchor=gtk.ANCHOR_CENTER,
+      )
+
+    self.widget2.raise_(None)
+
+
   def enter_char_callback(self, widget):
     if eval(self.config_dict['uppercase_only']):
-      text = widget.get_text()
-      widget.set_text(text.decode('utf8').upper().encode('utf8'))
+      text = self.entry.get_text()
+      self.entry.set_text(text.decode('utf8').upper().encode('utf8'))
 
   def enter_callback(self, widget):
-    text = widget.get_text()
+    text = self.entry.get_text()
+    cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
+    widget.window.set_cursor(cursor)
 
     found = False
     for user in self.users:
@@ -483,9 +510,11 @@ class Gcompris_login:
           self.users.extend( gcompris.admin.get_users_list())
           self.enter_callback(widget)
         else:
-          widget.set_text('')
+          self.entry.set_text('')
       except:
-        widget.set_text('')
+        self.entry.set_text('')
+    
+    gcompris.set_cursor(gcompris.CURSOR_DEFAULT);
 
   def config_start(self, profile):
     # keep profile in mind
