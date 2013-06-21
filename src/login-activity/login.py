@@ -26,6 +26,7 @@ import datetime
 import pango
 import urllib
 import json
+import gobject
 from gcompris import gcompris_gettext as _
 
 import math
@@ -466,11 +467,7 @@ class Gcompris_login:
       text = self.entry.get_text()
       self.entry.set_text(text.decode('utf8').upper().encode('utf8'))
 
-  def enter_callback(self, widget):
-    text = self.entry.get_text()
-    cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-    widget.window.set_cursor(cursor)
-
+  def process_user(self, text, gcompris):
     found = False
     for user in self.users:
       if eval(self.config_dict['uppercase_only']):
@@ -508,7 +505,7 @@ class Gcompris_login:
           #refresh the list
           self.users = []
           self.users.extend( gcompris.admin.get_users_list())
-          self.enter_callback(widget)
+          self.process_user(text, gcompris)
         else:
           self.entry.set_text('')
       except:
@@ -516,6 +513,16 @@ class Gcompris_login:
     
     gcompris.set_cursor(gcompris.CURSOR_DEFAULT);
 
+
+  def enter_callback(self, widget):
+    text = self.entry.get_text()
+    cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
+    widget.window.set_cursor(cursor)
+
+    # call time-consuming operation in a background thread
+    gobject.idle_add(self.process_user, text, gcompris)
+    
+    
   def config_start(self, profile):
     # keep profile in mind
     self.configuring_profile = profile
