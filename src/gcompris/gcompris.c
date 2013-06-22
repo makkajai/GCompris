@@ -565,6 +565,9 @@ void gc_cursor_set(guint gdk_cursor_type)
     case GCOMPRIS_SELECT_CURSOR :
       cursor_pixbuf = gc_skin_pixmap_load_or_null("cursors/select.png");
       break;
+    case GCOMPRIS_CLOCK_CURSOR :
+      cursor_pixbuf = gc_skin_pixmap_load_or_null("timers/clock1.png");
+      break;
     default :
       return;
       break;

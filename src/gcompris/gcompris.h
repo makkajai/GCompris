@@ -282,5 +282,6 @@ gint gc_timing (gint timeout, gint actors_number);
 #define GCOMPRIS_DEL_CURSOR		1008
 #define GCOMPRIS_FILL_CURSOR		1009
 #define GCOMPRIS_SELECT_CURSOR		1010
+#define GCOMPRIS_CLOCK_CURSOR           1011
 
 #endif

@@ -1781,6 +1781,7 @@ void python_gcompris_module_init(void)
   PyModule_AddIntConstant(gcomprisModule, "CURSOR_FILL",          GCOMPRIS_FILL_CURSOR);
   PyModule_AddIntConstant(gcomprisModule, "CURSOR_SELECT",        GCOMPRIS_SELECT_CURSOR);
   PyModule_AddIntConstant(gcomprisModule, "CURSOR_DEFAULT",       GCOMPRIS_DEFAULT_CURSOR);
+  PyModule_AddIntConstant(gcomprisModule, "CURSOR_CLOCK",         GCOMPRIS_CLOCK_CURSOR);
 
   /* Some non gcompris.h constants. */
   GcomprisProperties	*properties = gc_prop_get();

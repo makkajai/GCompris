@@ -124,7 +124,6 @@ class Gcompris_login:
       )
 
   def end(self):
-
     # Remove the root item removes all the others inside it
     self.rootitem.remove()
 
@@ -382,22 +381,29 @@ class Gcompris_login:
 
     return False
 
+  # 
+  # tries to get logs from the server for this user
+  #
+  def try_get_logs(self, user):
+     try:
+       self.get_logs_from_server(user)
+     except:
+        print "error in getting logs"
+     gcompris.set_cursor(gcompris.CURSOR_DEFAULT);
+
   #
   # Event when a click happen on a user name
   #
   def name_click_event(self, widget, target, event, user):
     if event.type == gtk.gdk.BUTTON_PRESS:
-      try:
-        self.get_logs_from_server(user)
-      except:
-        print "error in getting logs"
-
       self.logon(user)
       return True
 
     return False
 
   def logon(self, user):
+    gcompris.set_cursor(gcompris.CURSOR_CLOCK);
+    gobject.idle_add(self.try_get_logs, user)
     gcompris.admin.set_current_user(user)
     gcompris.admin.board_run_next(self.Prop.menu_board)
 
@@ -468,6 +474,7 @@ class Gcompris_login:
       self.entry.set_text(text.decode('utf8').upper().encode('utf8'))
 
   def process_user(self, text, gcompris):
+    print 'Process user'
     found = False
     for user in self.users:
       if eval(self.config_dict['uppercase_only']):
@@ -476,10 +483,6 @@ class Gcompris_login:
         login = user.login
       if text == login:
         self.widget.remove()
-        try:
-          self.get_logs_from_server(user)
-        except:
-          print "error in getting logs"
         self.logon(user)
         found = True
 
@@ -510,19 +513,19 @@ class Gcompris_login:
           self.entry.set_text('')
       except:
         self.entry.set_text('')
-    
     gcompris.set_cursor(gcompris.CURSOR_DEFAULT);
 
 
   def enter_callback(self, widget):
     text = self.entry.get_text()
-    cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-    widget.window.set_cursor(cursor)
+    # self.go.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
+    gcompris.set_cursor(gcompris.CURSOR_CLOCK);
 
     # call time-consuming operation in a background thread
     gobject.idle_add(self.process_user, text, gcompris)
-    
-    
+
+
+
   def config_start(self, profile):
     # keep profile in mind
     self.configuring_profile = profile
