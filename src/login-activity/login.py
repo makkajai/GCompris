@@ -75,7 +75,7 @@ class Gcompris_login:
     self.gcomprisBoard.maxlevel=1
     self.gcomprisBoard.sublevel=1
     self.gcomprisBoard.number_of_sublevel=1
-    gcompris.bar_set(gcompris.BAR_REPEAT|gcompris.BAR_CONFIG)
+    gcompris.bar_set(gcompris.BAR_CONFIG)
 
     gcompris.bar_set_level(self.gcomprisBoard)
 
