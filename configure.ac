@@ -171,7 +171,7 @@ AC_SUBST(REBUILD)
 LDFLAGS="${LDFLAGS}"
 
 dnl Add the languages which your application supports here.
-ALL_LINGUAS="af am ar ast az bg br ca cs da de dz el en_CA en_GB eo es et eu fa fi fr ga gd gl gu he hi hr hu id it ja ka kn ko lt lv mk ml mr ms nb ne nl nn oc pa pl pt pt_BR ro ru rw sk sl so sq sr sr_ME sr@latin sv ta te th tr uk ur vi wa zh_CN zh_HK zh_TW zu"
+ALL_LINGUAS="en_CA en_GB"
 
 dnl GCompris needs to know which locale are supported
 AC_SUBST(ALL_LINGUAS)
@@ -546,12 +546,6 @@ src/algebra_plus-activity/Makefile
 src/algorithm-activity/Makefile
 src/algorithm-activity/resources/Makefile
 src/algorithm-activity/resources/algorithm/Makefile
-src/anim-activity/Makefile
-src/anim-activity/resources/Makefile
-src/anim-activity/resources/anim/Makefile
-src/awele-activity/Makefile
-src/awele-activity/resources/Makefile
-src/awele-activity/resources/awele/Makefile
 src/babymatch-activity/Makefile
 src/babymatch-activity/resources/Makefile
 src/babymatch-activity/resources/babymatch/Makefile
@@ -563,15 +557,6 @@ src/babyshapes-activity/resources/babyshapes/dog1/Makefile
 src/babyshapes-activity/resources/babyshapes/dog2/Makefile
 src/babyshapes-activity/resources/babyshapes/dog3/Makefile
 src/babyshapes-activity/resources/babyshapes/food/Makefile
-src/ballcatch-activity/Makefile
-src/ballcatch-activity/resources/Makefile
-src/ballcatch-activity/resources/ballcatch/Makefile
-src/bargame-activity/Makefile
-src/bargame-activity/resources/Makefile
-src/bargame-activity/resources/bargame/Makefile
-src/billard-activity/Makefile
-src/billard-activity/resources/Makefile
-src/billard-activity/resources/billard/Makefile
 src/boards/Makefile
 src/boards/python/Makefile
 src/boards/python/gcompris/Makefile
@@ -583,27 +568,6 @@ src/boards/python/gcompris/skin/Makefile
 src/boards/python/gcompris/sound/Makefile
 src/boards/python/gcompris/timer/Makefile
 src/boards/python/gcompris/utils/Makefile
-src/braille_alphabets-activity/Makefile
-src/braille_alphabets-activity/resources/Makefile
-src/braille_alphabets-activity/resources/braille_alphabets/Makefile
-src/braille_fun-activity/Makefile
-src/braille_fun-activity/resources/Makefile
-src/braille_fun-activity/resources/braille_fun/Makefile
-src/braille_lotto-activity/Makefile
-src/braille_lotto-activity/resources/Makefile
-src/braille_lotto-activity/resources/braille_lotto/Makefile
-src/canal_lock-activity/Makefile
-src/canal_lock-activity/resources/Makefile
-src/canal_lock-activity/resources/canal_lock/Makefile
-src/chat-activity/Makefile
-src/chat-activity/resources/Makefile
-src/chat-activity/resources/chat/Makefile
-src/chess_computer-activity/Makefile
-src/chess_computer-activity/gnuchess/Makefile
-src/chess_computer-activity/resources/Makefile
-src/chess_computer-activity/resources/chess/Makefile
-src/chess_movelearn-activity/Makefile
-src/chess_partyend-activity/Makefile
 src/chronos-activity/Makefile
 src/chronos-activity/resources/Makefile
 src/chronos-activity/resources/chronos/Makefile
@@ -612,9 +576,6 @@ src/click_on_letter-activity/resources/Makefile
 src/click_on_letter-activity/resources/click_on_letter/Makefile
 src/click_on_letter_up-activity/Makefile
 src/clickanddraw-activity/Makefile
-src/clickgame-activity/Makefile
-src/clickgame-activity/resources/Makefile
-src/clickgame-activity/resources/clickgame/Makefile
 src/clockgame-activity/Makefile
 src/clockgame-activity/resources/Makefile
 src/clockgame-activity/resources/clockgame/Makefile
@@ -625,11 +586,6 @@ src/color_mix-activity/Makefile
 src/color_mix-activity/resources/Makefile
 src/color_mix-activity/resources/color_mix/Makefile
 src/color_mix_light-activity/Makefile
-src/connect4-2players-activity/Makefile
-src/connect4-activity/Makefile
-src/connect4-activity/connect4p/Makefile
-src/connect4-activity/resources/Makefile
-src/connect4-activity/resources/connect4/Makefile
 src/crane-activity/Makefile
 src/crane-activity/resources/Makefile
 src/crane-activity/resources/crane/Makefile
@@ -646,14 +602,6 @@ src/drawnumber-activity/resources/drawnumber/Makefile
 src/electric-activity/Makefile
 src/electric-activity/resources/Makefile
 src/electric-activity/resources/electric/Makefile
-src/enumerate-activity/Makefile
-src/enumerate-activity/resources/Makefile
-src/enumerate-activity/resources/enumerate/Makefile
-src/erase-activity/Makefile
-src/erase-activity/resources/Makefile
-src/erase-activity/resources/erase/Makefile
-src/erase_2clic-activity/Makefile
-src/erase_clic-activity/Makefile
 src/explore-activity/Makefile
 src/explore-activity/resources/Makefile
 src/explore-activity/resources/explore/Makefile
@@ -670,9 +618,6 @@ src/fifteen-activity/Makefile
 src/fifteen-activity/resources/Makefile
 src/fifteen-activity/resources/fifteen/Makefile
 src/findit-activity/Makefile
-src/followline-activity/Makefile
-src/followline-activity/resources/Makefile
-src/followline-activity/resources/followline/Makefile
 src/gcompris/Makefile
 src/geo_country-activity/Makefile
 src/geo_country-activity/resources/Makefile
@@ -725,9 +670,6 @@ src/hanoi-activity/Makefile
 src/hanoi_real-activity/Makefile
 src/hanoi_real-activity/resources/Makefile
 src/hanoi_real-activity/resources/hanoi_real/Makefile
-src/hexagon-activity/Makefile
-src/hexagon-activity/resources/Makefile
-src/hexagon-activity/resources/hexagon/Makefile
 src/hydroelectric-activity/Makefile
 src/hydroelectric-activity/resources/Makefile
 src/hydroelectric-activity/resources/hydroelectric/Makefile
@@ -737,9 +679,6 @@ src/imageid-activity/resources/imageid/Makefile
 src/imagename-activity/Makefile
 src/imagename-activity/resources/Makefile
 src/imagename-activity/resources/imagename/Makefile
-src/instruments-activity/Makefile
-src/instruments-activity/resources/Makefile
-src/instruments-activity/resources/instruments/Makefile
 src/intro_gravity-activity/Makefile
 src/intro_gravity-activity/resources/Makefile
 src/intro_gravity-activity/resources/intro_gravity/Makefile
@@ -749,18 +688,12 @@ src/land_safe-activity/resources/land_safe/Makefile
 src/lang-activity/Makefile
 src/lang-activity/resources/Makefile
 src/lang-activity/resources/lang/Makefile
-src/leftright-activity/Makefile
-src/leftright-activity/resources/Makefile
-src/leftright-activity/resources/leftright/Makefile
 src/lightsoff-activity/Makefile
 src/lightsoff-activity/resources/Makefile
 src/lightsoff-activity/resources/lightsoff/Makefile
 src/login-activity/Makefile
 src/login-activity/resources/Makefile
 src/login-activity/resources/login/Makefile
-src/louis_braille-activity/Makefile
-src/louis_braille-activity/resources/Makefile
-src/louis_braille-activity/resources/louis_braille/Makefile
 src/magic_hat_minus-activity/Makefile
 src/magic_hat_minus-activity/resources/Makefile
 src/magic_hat_minus-activity/resources/magic_hat/Makefile
@@ -771,9 +704,6 @@ src/maze-activity/resources/maze/Makefile
 src/maze2DRelative-activity/Makefile
 src/maze3D-activity/Makefile
 src/mazeInvisible-activity/Makefile
-src/melody-activity/Makefile
-src/melody-activity/resources/Makefile
-src/melody-activity/resources/melody/Makefile
 src/memory-activity/Makefile
 src/memory-activity/resources/Makefile
 src/memory-activity/resources/memory/Makefile
@@ -785,7 +715,6 @@ src/memory_add_minus_tux-activity/Makefile
 src/memory_add_tux-activity/Makefile
 src/memory_div-activity/Makefile
 src/memory_div_tux-activity/Makefile
-src/memory_enumerate-activity/Makefile
 src/memory_minus-activity/Makefile
 src/memory_minus_tux-activity/Makefile
 src/memory_mult-activity/Makefile
@@ -815,12 +744,6 @@ src/note_names-activity/Makefile
 src/paintings-activity/Makefile
 src/paintings-activity/resources/Makefile
 src/paintings-activity/resources/paintings/Makefile
-src/paratrooper-activity/Makefile
-src/paratrooper-activity/resources/Makefile
-src/paratrooper-activity/resources/paratrooper/Makefile
-src/penalty-activity/Makefile
-src/penalty-activity/resources/Makefile
-src/penalty-activity/resources/penalty/Makefile
 src/photohunter-activity/Makefile
 src/photohunter-activity/resources/Makefile
 src/photohunter-activity/resources/photohunter/Makefile
@@ -863,23 +786,13 @@ src/scalesboard-activity/Makefile
 src/scalesboard-activity/resources/Makefile
 src/scalesboard-activity/resources/scale/Makefile
 src/scalesboard_weight-activity/Makefile
-src/searace-activity/Makefile
-src/searace-activity/resources/Makefile
-src/searace-activity/resources/searace/Makefile
-src/searace1player-activity/Makefile
 src/smallnumbers-activity/Makefile
 src/smallnumbers-activity/resources/Makefile
 src/smallnumbers-activity/resources/smallnumbers/Makefile
 src/smallnumbers2-activity/Makefile
-src/submarine-activity/Makefile
-src/submarine-activity/resources/Makefile
-src/submarine-activity/resources/submarine/Makefile
 src/sudoku-activity/Makefile
 src/sudoku-activity/resources/Makefile
 src/sudoku-activity/resources/sudoku/Makefile
-src/superbrain-activity/Makefile
-src/superbrain-activity/resources/Makefile
-src/superbrain-activity/resources/superbrain/Makefile
 src/tangram-activity/Makefile
 src/tangram-activity/resources/Makefile
 src/tangram-activity/resources/tangram/Makefile
@@ -893,9 +806,6 @@ src/tuxpaint-activity/Makefile
 src/watercycle-activity/Makefile
 src/watercycle-activity/resources/Makefile
 src/watercycle-activity/resources/watercycle/Makefile
-src/wordprocessor-activity/Makefile
-src/wordprocessor-activity/resources/Makefile
-src/wordprocessor-activity/resources/wordprocessor/Makefile
 src/wordsgame-activity/Makefile
 sugar/Makefile
 ])
