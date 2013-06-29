@@ -45,7 +45,7 @@ ifneq ($(CROSSCOMPILER),)
 	MAKENSIS:=makensis
 else
 	# MSYS CASE
-	LOCAL_PREFIX:=/C/playground/projarea/GCompris/windows
+	LOCAL_PREFIX:=/C
 	MAKENSIS:="/c/Program Files/NSIS/makensis.exe"
 endif
 
@@ -59,7 +59,7 @@ LIBXML2_TOP :=		$(LOCAL_PREFIX)/libxml2
 SDL_TOP :=		$(LOCAL_PREFIX)/sdl
 SDLMIXER_TOP :=		$(LOCAL_PREFIX)/sdl_mixer
 GNUCHESS_TOP :=		$(LOCAL_PREFIX)/gnuchess
-PYTHON_TOP :=		/c/Python27
+PYTHON_TOP :=		$(LOCAL_PREFIX)/Python27
 GNUCAP_TOP :=		$(LOCAL_PREFIX)/gnucap
 SQLITE_TOP :=		$(LOCAL_PREFIX)/sqlite
 FONTCONFIG_TOP :=	$(LOCAL_PREFIX)/gtk
