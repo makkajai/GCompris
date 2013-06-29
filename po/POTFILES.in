@@ -75,10 +75,6 @@ src/anim-activity/anim.py
 src/anim-activity/anim.xml.in
 src/anim-activity/Color.py
 src/anim-activity/Timeline.py
-src/awele-activity/awele_alphaBeta.c
-src/awele-activity/awele.c
-src/awele-activity/awele_utils.c
-src/awele-activity/awele.xml.in
 src/babymatch-activity/babymatch.xml.in
 src/babymatch-activity/resources/babymatch/board1_0.xml.in
 src/babymatch-activity/resources/babymatch/board2_0.xml.in
@@ -105,8 +101,6 @@ src/ballcatch-activity/ballcatch.py
 src/ballcatch-activity/ballcatch.xml.in
 src/bargame-activity/bargame.py
 src/bargame-activity/bargame.xml.in
-src/billard-activity/billard.c
-src/billard-activity/billard.xml.in
 src/boards/menu2.c
 src/boards/py-gcompris-board.c
 src/boards/py-gcompris-class.c
@@ -140,14 +134,8 @@ src/braille_alphabets-activity/BrailleMap.py
 src/braille_fun-activity/braille_fun.xml.in
 src/braille_lotto-activity/braille_lotto.py
 src/braille_lotto-activity/braille_lotto.xml.in
-src/canal_lock-activity/canal_lock.c
-src/canal_lock-activity/canal_lock.xml.in
 src/chat-activity/chat.py
 src/chat-activity/chat.xml.in
-src/chess_computer-activity/chess.c
-src/chess_computer-activity/chess_computer.xml.in
-src/chess_computer-activity/chess_notation.c
-src/chess_computer-activity/chess_position.c
 src/chess_movelearn-activity/chess_movelearn.xml.in
 src/chess_partyend-activity/chess_partyend.xml.in
 src/chronos-activity/chronos.xml.in
@@ -165,8 +153,6 @@ src/chronos-activity/resources/chronos/board4_1.xml.in
 src/chronos-activity/resources/chronos/board4_2.xml.in
 src/chronos-activity/resources/chronos/board4_3.xml.in
 src/clickanddraw-activity/clickanddraw.xml.in
-src/clickgame-activity/clickgame.c
-src/clickgame-activity/clickgame.xml.in
 src/click_on_letter-activity/click_on_letter.c
 src/click_on_letter-activity/click_on_letter.xml.in
 src/click_on_letter_up-activity/click_on_letter_up.xml.in
@@ -221,11 +207,7 @@ src/drawnumber-activity/drawnumber.py
 src/drawnumber-activity/drawnumber.xml.in
 src/electric-activity/electric.py
 src/electric-activity/electric.xml.in
-src/enumerate-activity/enumerate.c
-src/enumerate-activity/enumerate.xml.in
 src/erase_2clic-activity/erase_2clic.xml.in
-src/erase-activity/erase.c
-src/erase-activity/erase.xml.in
 src/erase_clic-activity/erase_clic.xml.in
 src/explore-activity/explore.py
 src/explore_farm_animals-activity/explore_farm_animals.xml.in
@@ -342,8 +324,6 @@ src/land_safe-activity/land_safe.py
 src/land_safe-activity/land_safe.xml.in
 src/lang-activity/lang.py
 src/lang-activity/lang.xml.in
-src/leftright-activity/leftright.c
-src/leftright-activity/leftright.xml.in
 src/lightsoff-activity/lightsoff.py
 src/lightsoff-activity/lightsoff.xml.in
 src/login-activity/login.py
@@ -371,7 +351,6 @@ src/memory_add_minus_tux-activity/memory_add_minus_tux.xml.in
 src/memory_add_tux-activity/memory_add_tux.xml.in
 src/memory_div-activity/memory_div.xml.in
 src/memory_div_tux-activity/memory_div_tux.xml.in
-src/memory_enumerate-activity/memory_enumerate.xml.in
 src/memory_minus-activity/memory_minus.xml.in
 src/memory_minus_tux-activity/memory_minus_tux.xml.in
 src/memory_mult-activity/memory_mult.xml.in
@@ -426,8 +405,6 @@ src/paintings-activity/resources/paintings/board3_1.xml.in
 src/paintings-activity/resources/paintings/board4_0.xml.in
 src/paintings-activity/resources/paintings/board5_0.xml.in
 src/paintings-activity/resources/paintings/board6_0.xml.in
-src/paratrooper-activity/paratrooper.c
-src/paratrooper-activity/paratrooper.xml.in
 src/penalty-activity/penalty.py
 src/penalty-activity/penalty.xml.in
 src/photohunter-activity/photohunter.c
@@ -467,12 +444,8 @@ src/searace-activity/searace.xml.in
 src/smallnumbers2-activity/smallnumbers2.xml.in
 src/smallnumbers-activity/smallnumbers.c
 src/smallnumbers-activity/smallnumbers.xml.in
-src/submarine-activity/submarine.c
-src/submarine-activity/submarine.xml.in
 src/sudoku-activity/sudoku.py
 src/sudoku-activity/sudoku.xml.in
-src/superbrain-activity/superbrain.c
-src/superbrain-activity/superbrain.xml.in
 src/tangram-activity/gtans.c
 src/tangram-activity/gtans_callbacks.c
 src/tangram-activity/gtans_interface.c
@@ -486,8 +459,6 @@ src/tuxpaint-activity/tuxpaint.py
 src/tuxpaint-activity/tuxpaint.xml.in
 src/watercycle-activity/watercycle.py
 src/watercycle-activity/watercycle.xml.in
-src/wordprocessor-activity/wordprocessor.c
-src/wordprocessor-activity/wordprocessor.xml.in
 src/wordsgame-activity/wordsgame.c
 src/wordsgame-activity/wordsgame.xml.in
 src/synchronization-activity/synchronization.xml.in

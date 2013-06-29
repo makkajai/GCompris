@@ -16,29 +16,20 @@ GCOMPRIS_INSTALL_DIR = ./win32-install-dir
 activity_dir = \
 	algebra_by-activity \
 	algebra_guesscount-activity \
-	awele-activity \
 	babymatch-activity \
-	billard-activity \
-	canal_lock-activity \
-	chess_computer-activity \
-	clickgame-activity \
 	click_on_letter-activity \
 	clockgame-activity \
 	crane-activity \
-	enumerate-activity \
-	erase-activity \
 	fifteen-activity \
 	gletters-activity \
 	hanoi-activity \
 	hanoi_real-activity \
 	imageid-activity \
-	leftright-activity \
 	magic_hat_minus-activity \
 	maze-activity \
 	memory-activity \
 	missing_letter-activity \
 	money-activity \
-	paratrooper-activity \
 	photohunter-activity \
 	planegame-activity \
 	railroad-activity \
@@ -46,12 +37,9 @@ activity_dir = \
 	reversecount-activity \
 	scalesboard-activity \
 	smallnumbers-activity \
-	submarine-activity \
-	superbrain-activity \
 	tangram-activity \
 	target-activity \
 	traffic-activity \
-	wordprocessor-activity \
 	wordsgame-activity
 
 include global_win32.mak

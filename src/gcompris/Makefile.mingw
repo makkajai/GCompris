@@ -127,29 +127,20 @@ EXE_OBJECTS = $(EXE_C_SRC:%.c=%.o) $(RC_SRC:%.rc=%.o)
 ACTIVITY_LIBS =  \
 	../algebra_by-activity/libactivity.a \
 	../algebra_guesscount-activity/libactivity.a \
-	../awele-activity/libactivity.a \
 	../babymatch-activity/libactivity.a \
-	../billard-activity/libactivity.a \
-	../canal_lock-activity/libactivity.a \
-	../chess_computer-activity/libactivity.a \
-	../clickgame-activity/libactivity.a \
 	../click_on_letter-activity/libactivity.a \
 	../clockgame-activity/libactivity.a \
 	../crane-activity/libactivity.a \
-	../enumerate-activity/libactivity.a \
-	../erase-activity/libactivity.a \
 	../fifteen-activity/libactivity.a \
 	../gletters-activity/libactivity.a \
 	../hanoi-activity/libactivity.a \
 	../hanoi_real-activity/libactivity.a \
 	../imageid-activity/libactivity.a \
-	../leftright-activity/libactivity.a \
 	../magic_hat_minus-activity/libactivity.a \
 	../maze-activity/libactivity.a \
 	../memory-activity/libactivity.a \
 	../missing_letter-activity/libactivity.a \
 	../money-activity/libactivity.a \
-	../paratrooper-activity/libactivity.a \
 	../photohunter-activity/libactivity.a \
 	../planegame-activity/libactivity.a \
 	../railroad-activity/libactivity.a \
@@ -157,12 +148,9 @@ ACTIVITY_LIBS =  \
 	../reversecount-activity/libactivity.a \
 	../scalesboard-activity/libactivity.a \
 	../smallnumbers-activity/libactivity.a \
-	../submarine-activity/libactivity.a \
-	../superbrain-activity/libactivity.a \
 	../tangram-activity/libactivity.a \
 	../target-activity/libactivity.a \
 	../traffic-activity/libactivity.a \
-	../wordprocessor-activity/libactivity.a \
 	../wordsgame-activity/libactivity.a
 
 EXE_LIBS =		../boards/libboards.a \
