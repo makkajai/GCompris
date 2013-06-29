@@ -371,6 +371,7 @@ gc_board_stop(void)
         gc_board_get_current_board_plugin()->end_board();
       }
 
+      gc_log_end (gc_board_get_current(), GC_BOARD_COMPLETED);
       gc_board_end();
       return;
     }

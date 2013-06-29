@@ -35,3 +35,9 @@ missing
 mkinstalldirs
 win32-install-dir
 sugar/application-x-gcompris-*.svg
+gcompris.project
+gcompris.tags
+gcompris.workspace
+gcompris.workspace.deepshah
+gcompris.workspace.session
+
