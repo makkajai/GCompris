@@ -359,6 +359,8 @@ gc_board_pause(int pause)
 void
 gc_board_stop(void)
 {
+  GcomprisBoard *gcomprisBoard;
+
   if (! bp_data)
     return;
 
@@ -370,8 +372,13 @@ gc_board_stop(void)
       {
         gc_board_get_current_board_plugin()->end_board();
       }
+      gcomprisBoard = gc_board_get_current();
 
-      gc_log_end (gc_board_get_current(), GC_BOARD_COMPLETED);
+      /* log end of board for all boards except the menu boards */
+      if(g_ascii_strcasecmp(gcomprisBoard->type,"menu") != 0)
+      {
+         gc_log_end (gcomprisBoard, GC_BOARD_COMPLETED);
+      }
       gc_board_end();
       return;
     }
