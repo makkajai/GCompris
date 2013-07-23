@@ -608,10 +608,14 @@ class Gcompris_login:
     print json_data
 
     for log in logs:
-      self.cur.execute("insert into logs (date, duration, user_id, board_id, level, sublevel, status) values (" + 
+      try: 
+         self.cur.execute("insert into logs (date, duration, user_id, board_id, level, sublevel, status) values (" + 
                         "'" + log["FormattedDate"] + "'," + str(log["Duration"]) + "," + str(user.user_id) + 
                         ", (select board_id from boards where name = '" + log["BoardName"] + "')," 
                         + str(log["Level"]) + "," + str(log["SubLevel"]) + "," + str(log["Status"]) + ")")
+      except:
+         print "log could not be inserted for board "
+         print log["BoardName"]
 
     self.cur.execute("update sync_status set from_server_date = '" + str(datetime.datetime.now()) + "' where login = '" + user.login + "'")
     self.con.commit()
