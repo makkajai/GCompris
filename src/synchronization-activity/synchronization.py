@@ -10,6 +10,9 @@ import urllib2
 import json
 import datetime
 import sys
+import datetime
+import time
+import traceback
 
 from gcompris import gcompris_gettext as _
 
@@ -60,6 +63,7 @@ class Gcompris_synchronization:
     # get the user date
     self.cur.execute("select to_server_date from sync_status where login = '"+self.user.login+"'");
     sync_status_data = self.cur.fetchall();
+    to_server_date = None
 
     for sync_status_row in sync_status_data:
       to_server_date = sync_status_row[0]
@@ -82,25 +86,29 @@ class Gcompris_synchronization:
 
     for log_row in log_data:
       log = dict()
-      log["Date"] = log_row[0]
-      log["Duration"] = log_row[1]
-      log["Login"] = log_row[2]
-      log["BoardName"] = log_row[3]
-      log["Level"] = log_row[4]
-      log["SubLevel"] = log_row[5]
-      log["Status"] = log_row[6]
+      log_date = datetime.datetime.strptime(log_row[0], '%Y-%m-%d %H:%M:%S')
+      log_date_utc = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.mktime(log_date.timetuple())))
+      log["date"] = log_date_utc
+      log["duration"] = log_row[1]
+      log["login"] = log_row[2]
+      log["boardname"] = log_row[3]
+      log["level"] = log_row[4]
+      log["sublevel"] = log_row[5]
+      log["status"] = log_row[6]
       logs.append(log)
 
     if(len(logs) > 0) :
       json_data = json.dumps(logs)
 
       #post data to /logs/{login}
+      print "JSON POST: " + json_data
       url =  self.Prop.backendurl + 'logs'
-      req = urllib2.Request(url, json_data, {'Content-Type': 'application/json'})
+      print url
+      req = urllib2.Request(url, json_data, {"Content-Type": "application/json", "accept": "application/json"})
       f = urllib2.urlopen(req)
       response = f.read()
+      print response
       f.close()
-
       self.cur.execute("update sync_status set to_server_date = '" + str(datetime.datetime.now()) + 
                        "', from_server_date = '" + str(datetime.datetime.now()) + # this is to ensure that same records don't come back
                        "' where login = '" + self.user.login + "'");
