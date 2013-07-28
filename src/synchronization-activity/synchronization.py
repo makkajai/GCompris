@@ -8,11 +8,12 @@ import gtk.gdk
 import pango
 import urllib2
 import json
-import datetime
 import sys
 import datetime
 import time
 import traceback
+import dateformat
+import httplib
 
 from gcompris import gcompris_gettext as _
 
@@ -86,8 +87,7 @@ class Gcompris_synchronization:
 
     for log_row in log_data:
       log = dict()
-      log_date = datetime.datetime.strptime(log_row[0], '%Y-%m-%d %H:%M:%S')
-      log_date_utc = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.mktime(log_date.timetuple())))
+      log_date_utc = dateformat.local_to_utc(log_row[0]) 
       log["date"] = log_date_utc
       log["duration"] = log_row[1]
       log["login"] = log_row[2]
@@ -104,13 +104,13 @@ class Gcompris_synchronization:
       print "JSON POST: " + json_data
       url =  self.Prop.backendurl + 'logs'
       print url
-      req = urllib2.Request(url, json_data, {"Content-Type": "application/json", "accept": "application/json"})
-      f = urllib2.urlopen(req)
-      response = f.read()
-      print response
-      f.close()
+      connection =  httplib.HTTPConnection('localhost:3000')
+      connection.request('POST', '/logs', json_data)
+      response = connection.getresponse()
+      connection.close()
+      # this is to ensure that same records don't come back
       self.cur.execute("update sync_status set to_server_date = '" + str(datetime.datetime.now()) + 
-                       "', from_server_date = '" + str(datetime.datetime.now()) + # this is to ensure that same records don't come back
+                       "', from_server_date = '" + str(datetime.datetime.now()) + 
                        "' where login = '" + self.user.login + "'");
       self.con.commit();
       self.end();

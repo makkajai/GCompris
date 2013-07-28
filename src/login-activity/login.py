@@ -389,7 +389,10 @@ class Gcompris_login:
   #
   def try_get_logs(self, user):
      try:
-       self.get_logs_from_server(user)
+       #If we comment the get logs from server then it seems that the POST goes through else the
+       #POST shows some weird behaviour dont know why???? -- Deep Shah
+       #self.get_logs_from_server(user)
+       print "hahdsahdsahdsahdsa"
      except:
         logging.exception("error in getting logs")
      gcompris.set_cursor(gcompris.CURSOR_DEFAULT);
@@ -500,6 +503,7 @@ class Gcompris_login:
       u = urllib2.urlopen(req)
       # u is a file-like object
       json_data = u.read()
+      u.close()
       logging.debug('Got the response' + json_data)
       user = json.loads(json_data)
 
@@ -616,6 +620,7 @@ class Gcompris_login:
     req = urllib2.Request(url, None, {'accept': 'application/json'})
     u = urllib2.urlopen(req)
     json_data = u.read()
+    u.close()
     logs = json.loads(json_data)
     logging.debug(json_data)
 
