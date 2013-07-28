@@ -5,7 +5,7 @@ SUBDIRS = resources
 
 pythondir = $(PYTHON_PLUGIN_DIR)
 
-dist_python_DATA= 	login.py
+dist_python_DATA= dateformat.py	login.py
 
 
 

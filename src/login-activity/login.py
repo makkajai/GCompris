@@ -23,10 +23,13 @@ import gcompris.admin
 import gtk
 import gtk.gdk
 import datetime
+import time
 import pango
-import urllib
+import urllib2
 import json
 import gobject
+import logging
+import dateformat
 from gcompris import gcompris_gettext as _
 
 import math
@@ -388,7 +391,7 @@ class Gcompris_login:
      try:
        self.get_logs_from_server(user)
      except:
-        print "error in getting logs"
+        logging.exception("error in getting logs")
      gcompris.set_cursor(gcompris.CURSOR_DEFAULT);
 
   #
@@ -474,7 +477,7 @@ class Gcompris_login:
       self.entry.set_text(text.decode('utf8').upper().encode('utf8'))
 
   def process_user(self, text, gcompris):
-    print 'Process user'
+    logging.debug('Process user')
     found = False
     for user in self.users:
       if eval(self.config_dict['uppercase_only']):
@@ -492,18 +495,20 @@ class Gcompris_login:
       # check if the user is present in the background service
       # make a call to /students/{login}
       
-      url =  self.Prop.backendurl + 'students/' + text + '?format=json'
-      u = urllib.urlopen(url)
+      url =  self.Prop.backendurl + 'students/' + text 
+      req = urllib2.Request(url, None, {'accept': 'application/json'})
+      u = urllib2.urlopen(req)
       # u is a file-like object
       json_data = u.read()
+      logging.debug('Got the response' + json_data)
       user = json.loads(json_data)
 
       try:
-        if user["Login"] == text:
+        if user["login"] == text:
           # if it returns something, then save the user and call enter_callback again
           self.cur.execute("insert into users (user_id, login, firstname, lastname) values (" + 
-                            str(self.get_next_user_id()) + ", '" + user["Login"] + "','" + 
-                            user["FirstName"] + "','" + user["LastName"] + "')")
+                            str(self.get_next_user_id()) + ", '" + user["login"] + "','" + 
+                            user["firstname"] + "','" + user["lastname"] + "')")
           self.con.commit()
           #refresh the list
           self.users = []
@@ -590,32 +595,40 @@ class Gcompris_login:
 
   def get_logs_from_server(self, user):
     # GET from logs/{login}?Date=date (date is optional)
-    url =  self.Prop.backendurl + 'logs/' + user.login + '?format=json'
+    url =  self.Prop.backendurl + 'logs/' + user.login 
 
     self.cur.execute("select from_server_date from sync_status where login = '"+user.login+"'");
     sync_status_data = self.cur.fetchall();
+    from_server_date = None
     for sync_status_row in sync_status_data:
       from_server_date = sync_status_row[0]
 
     if from_server_date is not None :
       # remove the micro seconds, it creates problem
-      from_server_date = datetime.datetime.strftime(datetime.datetime.strptime(from_server_date, '%Y-%m-%d %H:%M:%S.%f'), '%Y-%m-%d %H:%M:%S')
+      #First converting string date into datetime object.
+      #Then converting local datetime object into UTC date time string
+      from_server_date = datetime.datetime.strptime(from_server_date, '%Y-%m-%d %H:%M:%S.%f')
+      # All times need to be sent to the server in UTC format.  converting local time to UTC time.
+      from_server_date = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.mktime(from_server_date.timetuple()))) 
+      logging.debug("Fetching logs from server from:" + from_server_date)
       url = url + '&fromDate=' + from_server_date
 
-    u = urllib.urlopen(url)
+    req = urllib2.Request(url, None, {'accept': 'application/json'})
+    u = urllib2.urlopen(req)
     json_data = u.read()
     logs = json.loads(json_data)
-    print json_data
+    logging.debug(json_data)
 
     for log in logs:
       try: 
+         log_date_local = dateformat.utc_to_local(log["date"])
+	 logging.debug(log_date_local)
          self.cur.execute("insert into logs (date, duration, user_id, board_id, level, sublevel, status) values (" + 
-                        "'" + log["FormattedDate"] + "'," + str(log["Duration"]) + "," + str(user.user_id) + 
-                        ", (select board_id from boards where name = '" + log["BoardName"] + "')," 
-                        + str(log["Level"]) + "," + str(log["SubLevel"]) + "," + str(log["Status"]) + ")")
-      except:
-         print "log could not be inserted for board "
-         print log["BoardName"]
+                        "'" + log_date_local + "'," + str(log["duration"]) + "," + str(user.user_id) + 
+                        ", (select board_id from boards where name = '" + log["boardname"] + "')," 
+                        + str(log["level"]) + "," + str(log["sublevel"]) + "," + str(log["status"]) + ")")
+      except  Exception, ex:
+	 logging.exception("Something awful happened!!!!!! while saving log: " + log["boardname"])
 
     self.cur.execute("update sync_status set from_server_date = '" + str(datetime.datetime.now()) + "' where login = '" + user.login + "'")
     self.con.commit()
