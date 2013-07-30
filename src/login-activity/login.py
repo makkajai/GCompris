@@ -30,6 +30,7 @@ import json
 import gobject
 import logging
 import dateformat
+import contextlib
 from gcompris import gcompris_gettext as _
 
 import math
@@ -391,9 +392,9 @@ class Gcompris_login:
      try:
        #If we comment the get logs from server then it seems that the POST goes through else the
        #POST shows some weird behaviour dont know why???? -- Deep Shah
-       #self.get_logs_from_server(user)
        print "hahdsahdsahdsahdsa"
-     except:
+       self.get_logs_from_server(user)
+     except Exception, ex:
         logging.exception("error in getting logs")
      gcompris.set_cursor(gcompris.CURSOR_DEFAULT);
 
@@ -500,12 +501,14 @@ class Gcompris_login:
       
       url =  self.Prop.backendurl + 'students/' + text 
       req = urllib2.Request(url, None, {'accept': 'application/json'})
-      u = urllib2.urlopen(req)
+      user = None 
+      with contextlib.closing(urllib2.urlopen(req)) as u:
+      #u = urllib2.urlopen(req)
       # u is a file-like object
-      json_data = u.read()
-      u.close()
-      logging.debug('Got the response' + json_data)
-      user = json.loads(json_data)
+        json_data = u.read()
+      #u.close()
+        logging.debug('Got the response' + json_data)
+        user = json.loads(json_data)
 
       try:
         if user["login"] == text:
@@ -611,30 +614,32 @@ class Gcompris_login:
       # remove the micro seconds, it creates problem
       #First converting string date into datetime object.
       #Then converting local datetime object into UTC date time string
-      from_server_date = datetime.datetime.strptime(from_server_date, '%Y-%m-%d %H:%M:%S.%f')
+      from_server_date = dateformat.local_to_utc(from_server_date, 1) 
       # All times need to be sent to the server in UTC format.  converting local time to UTC time.
-      from_server_date = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.mktime(from_server_date.timetuple()))) 
-      logging.debug("Fetching logs from server from:" + from_server_date)
+      print "Fetching logs from server from:" + from_server_date
       url = url + '&fromDate=' + from_server_date
 
     req = urllib2.Request(url, None, {'accept': 'application/json'})
-    u = urllib2.urlopen(req)
-    json_data = u.read()
-    u.close()
-    logs = json.loads(json_data)
-    logging.debug(json_data)
+    logs = None
+    with contextlib.closing(urllib2.urlopen(req)) as u:
+    #u = urllib2.urlopen(req)
+      json_data = u.read()
+    #u.close()
+      logs = json.loads(json_data)
+      print "Logs from server ###########" + json_data
+      print "Length ###########" + str(len(logs))
 
     for log in logs:
       try: 
          log_date_local = dateformat.utc_to_local(log["date"])
-	 logging.debug(log_date_local)
-         self.cur.execute("insert into logs (date, duration, user_id, board_id, level, sublevel, status) values (" + 
+         self.cur.execute("insert into logs (date, duration, user_id, board_id, level, sublevel, status, synced) values (" + 
                         "'" + log_date_local + "'," + str(log["duration"]) + "," + str(user.user_id) + 
                         ", (select board_id from boards where name = '" + log["boardname"] + "')," 
-                        + str(log["level"]) + "," + str(log["sublevel"]) + "," + str(log["status"]) + ")")
+                        + str(log["level"]) + "," + str(log["sublevel"]) + "," + str(log["status"]) + ", 1)")
       except  Exception, ex:
 	 logging.exception("Something awful happened!!!!!! while saving log: " + log["boardname"])
 
     self.cur.execute("update sync_status set from_server_date = '" + str(datetime.datetime.now()) + "' where login = '" + user.login + "'")
     self.con.commit()
+    print "#################All done now###############"
     self.end()

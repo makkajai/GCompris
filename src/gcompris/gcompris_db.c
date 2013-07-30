@@ -58,7 +58,7 @@ static sqlite3 *gcompris_db=NULL;
 #define CREATE_TABLE_BOARDS						\
   "CREATE TABLE boards (board_id INT UNIQUE, name TEXT, section_id INT, section TEXT, author TEXT, type TEXT, mode TEXT, difficulty INT, icon TEXT, boarddir TEXT, mandatory_sound_file TEXT, mandatory_sound_dataset TEXT, filename TEXT, title TEXT, description TEXT, prerequisite TEXT, goal TEXT, manual TEXT, credit TEXT, demo INT);"
 #define CREATE_TABLE_LOGS						\
-  "CREATE TABLE logs (date TEXT, duration INT, user_id INT, board_id INT, level INT, sublevel INT, status INT, comment TEXT);"
+  "CREATE TABLE logs (date TEXT, duration INT, user_id INT, board_id INT, level INT, sublevel INT, status INT, comment TEXT, synced INT );"
 #define CREATE_TABLE_SYNC_STATUS                                        \
   "CREATE TABLE sync_status(login TEXT, from_server_date TEXT, to_server_date TEXT)"
 
@@ -2143,8 +2143,8 @@ gboolean gc_db_log(gchar *date, int duration,
   gchar *request;
   gchar *comment_quoted = escape_quote(comment);
 
-  request = g_strdup_printf("INSERT INTO logs (date, duration, user_id, board_id, level, sublevel, status, comment)"
-			    "VALUES ( \'%s\', %d,  %d,  %d,  %d,  %d,  %d,  \'%s\');",
+  request = g_strdup_printf("INSERT INTO logs (date, duration, user_id, board_id, level, sublevel, status, comment, synced)"
+			    "VALUES ( \'%s\', %d,  %d,  %d,  %d,  %d,  %d,  \'%s\', 0);",
 			    date, duration, user_id, board_id, level, sublevel, status, comment_quoted);
 
   rc = sqlite3_exec(gcompris_db, request, NULL,  0, &zErrMsg);

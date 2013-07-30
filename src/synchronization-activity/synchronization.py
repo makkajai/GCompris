@@ -69,17 +69,17 @@ class Gcompris_synchronization:
     for sync_status_row in sync_status_data:
       to_server_date = sync_status_row[0]
 
+
+      query = "select date as Date, duration as Duration, u.login as Login ,b.name as BoardName, level as Level, \
+                     sublevel as SubLevel, status as Status from logs l inner join users u on u.user_id = l.user_id \
+                     inner join boards b on b.board_id = l.board_id where l.synced = 0 and u.login = '" + self.user.login + "'"
     # Grab the user log data
     if to_server_date is None :
-      query = "select date as Date, duration as Duration, u.login as Login ,b.name as BoardName, level as Level, \
-                     sublevel as SubLevel, status as Status from logs l inner join users u on u.user_id = l.user_id \
-                     inner join boards b on b.board_id = l.board_id"
+      print "Nothing to append to the query!"
     else :
-      query = "select date as Date, duration as Duration, u.login as Login ,b.name as BoardName, level as Level, \
-                     sublevel as SubLevel, status as Status from logs l inner join users u on u.user_id = l.user_id \
-                     inner join boards b on b.board_id = l.board_id where l.date > '" + str(to_server_date) + "'"
+      query = query + " and l.date > '" + str(to_server_date) + "'"
 
-
+    print query
     self.cur.execute(query)
     log_data = self.cur.fetchall()
 
@@ -87,7 +87,7 @@ class Gcompris_synchronization:
 
     for log_row in log_data:
       log = dict()
-      log_date_utc = dateformat.local_to_utc(log_row[0]) 
+      log_date_utc = dateformat.local_to_utc(log_row[0], 0) 
       log["date"] = log_date_utc
       log["duration"] = log_row[1]
       log["login"] = log_row[2]
@@ -101,7 +101,7 @@ class Gcompris_synchronization:
       json_data = json.dumps(logs)
 
       #post data to /logs/{login}
-      print "JSON POST: " + json_data
+      print json_data
       url =  self.Prop.backendurl + 'logs'
       print url
       connection =  httplib.HTTPConnection('localhost:3000')
@@ -112,6 +112,7 @@ class Gcompris_synchronization:
       self.cur.execute("update sync_status set to_server_date = '" + str(datetime.datetime.now()) + 
                        "', from_server_date = '" + str(datetime.datetime.now()) + 
                        "' where login = '" + self.user.login + "'");
+      self.cur.execute("update logs set synced = 1 where user_id = " + str(self.user.user_id));
       self.con.commit();
       self.end();
 
