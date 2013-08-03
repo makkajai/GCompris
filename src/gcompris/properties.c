@@ -166,7 +166,7 @@ gc_prop_new ()
                                                           enabled for non-signed
                                                           in user*/
   tmp->rememberlevel     = 0;
-  tmp->backendurl        = g_strdup("http://localhost:3000/"); //used for backend services - change this to something correct later
+  tmp->backendurl        = g_strdup("localhost:3000"); //used for backend services - change this to something correct later
   tmp->root_menu         = g_strdup("/");
   tmp->profile           = NULL;
   tmp->logged_user       = NULL;

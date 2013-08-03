@@ -6,7 +6,6 @@ import gcompris.admin
 import gtk
 import gtk.gdk
 import pango
-import urllib2
 import json
 import sys
 import datetime
@@ -104,12 +103,7 @@ class Gcompris_synchronization:
       #post data to /logs/{login}
       print json_data
 
-      # req = urllib2.Request("http://localhost:3000/ping")
-      # conn = urllib2.urlopen(req)
-      # print conn.fp.closed
-      # conn.close()
-
-      c = httplib.HTTPConnection("localhost:3000")
+      c = httplib.HTTPConnection(self.Prop.backendurl)
       c.connect()
       c.putrequest("GET", "/ping")
       c.endheaders()
@@ -117,9 +111,7 @@ class Gcompris_synchronization:
       r.close()
       print "Done with the ping now!!!!"
 
-      url =  self.Prop.backendurl + 'savelogs'
-      print url
-      connection =  httplib.HTTPConnection('localhost:3000')
+      connection =  httplib.HTTPConnection(self.Prop.backendurl)
       connection.request('POST', '/savelogs', json_data)
       response = connection.getresponse()
       connection.close()

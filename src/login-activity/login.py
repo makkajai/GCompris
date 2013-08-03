@@ -25,12 +25,12 @@ import gtk.gdk
 import datetime
 import time
 import pango
-import urllib2
 import json
 import gobject
 import logging
 import dateformat
 import contextlib
+import httplib
 from gcompris import gcompris_gettext as _
 
 import math
@@ -390,9 +390,6 @@ class Gcompris_login:
   #
   def try_get_logs(self, user):
      try:
-       #If we comment the get logs from server then it seems that the POST goes through else the
-       #POST shows some weird behaviour dont know why???? -- Deep Shah
-       print "hahdsahdsahdsahdsa"
        self.get_logs_from_server(user)
      except Exception, ex:
         logging.exception("error in getting logs")
@@ -499,16 +496,15 @@ class Gcompris_login:
       # check if the user is present in the background service
       # make a call to /students/{login}
       
-      url =  self.Prop.backendurl + 'students/' + text 
-      req = urllib2.Request(url, None, {'accept': 'application/json'})
-      user = None 
-      with contextlib.closing(urllib2.urlopen(req)) as u:
-      #u = urllib2.urlopen(req)
-      # u is a file-like object
-        json_data = u.read()
-      #u.close()
-        logging.debug('Got the response' + json_data)
-        user = json.loads(json_data)
+      c = httplib.HTTPConnection(self.Prop.backendurl)
+      c.connect()
+      c.putrequest("GET", "students/"+text)
+      c.endheaders()
+      u = c.getresponse()
+      json_data = u.read()
+      u.close()
+      logging.debug('Got the response' + json_data)
+      user = json.loads(json_data)
 
       try:
         if user["login"] == text:
@@ -602,7 +598,8 @@ class Gcompris_login:
 
   def get_logs_from_server(self, user):
     # GET from logs/{login}?Date=date (date is optional)
-    url =  self.Prop.backendurl + 'logs/' + user.login 
+
+    url = 'logs/' + user.login 
 
     self.cur.execute("select from_server_date from sync_status where login = '"+user.login+"'");
     sync_status_data = self.cur.fetchall();
@@ -619,15 +616,17 @@ class Gcompris_login:
       print "Fetching logs from server from:" + from_server_date
       url = url + '&fromDate=' + from_server_date
 
-    req = urllib2.Request(url, None, {'accept': 'application/json'})
-    logs = None
-    with contextlib.closing(urllib2.urlopen(req)) as u:
-    #u = urllib2.urlopen(req)
-      json_data = u.read()
-    #u.close()
-      logs = json.loads(json_data)
-      print "Logs from server ###########" + json_data
-      print "Length ###########" + str(len(logs))
+    c = httplib.HTTPConnection(self.Prop.backendurl)
+    c.connect()
+    c.putrequest("GET", url)
+    c.endheaders()
+    u = c.getresponse()
+    json_data = u.read()
+    u.close()
+
+    logs = json.loads(json_data)
+    print "Logs from server ###########" + json_data
+    print "Length ###########" + str(len(logs))
 
     for log in logs:
       try: 
@@ -639,7 +638,10 @@ class Gcompris_login:
       except  Exception, ex:
 	 logging.exception("Something awful happened!!!!!! while saving log: " + log["boardname"])
 
-    self.cur.execute("update sync_status set from_server_date = '" + str(datetime.datetime.now()) + "' where login = '" + user.login + "'")
+    if from_server_date is not None :
+      self.cur.execute("update sync_status set from_server_date = '" + str(datetime.datetime.now()) + "' where login = '" + user.login + "'")
+    else:
+      self.cur.execute("insert into sync_status (login, from_server_date) values ('" + user.login + "', '" + str(datetime.datetime.now()) + "')")
     self.con.commit()
     print "#################All done now###############"
     self.end()
