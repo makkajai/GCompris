@@ -104,14 +104,18 @@ class Gcompris_synchronization:
       #post data to /logs/{login}
       print json_data
 
+      # req = urllib2.Request("http://localhost:3000/ping")
+      # conn = urllib2.urlopen(req)
+      # print conn.fp.closed
+      # conn.close()
 
-
-      #req = urllib2.Request("http://localhost:3000/ping")
-      #with contextlib.closing(urllib2.urlopen(req)) as u:
+      c = httplib.HTTPConnection("localhost:3000")
+      c.connect()
+      c.putrequest("GET", "/ping")
+      c.endheaders()
+      r = c.getresponse()
+      r.close()
       print "Done with the ping now!!!!"
-
-
-
 
       url =  self.Prop.backendurl + 'savelogs'
       print url
