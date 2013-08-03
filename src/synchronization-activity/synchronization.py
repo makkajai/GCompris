@@ -14,6 +14,7 @@ import time
 import traceback
 import dateformat
 import httplib
+import contextlib
 
 from gcompris import gcompris_gettext as _
 
@@ -70,7 +71,7 @@ class Gcompris_synchronization:
       to_server_date = sync_status_row[0]
 
 
-      query = "select date as Date, duration as Duration, u.login as Login ,b.name as BoardName, level as Level, \
+    query = "select date as Date, duration as Duration, u.login as Login ,b.name as BoardName, level as Level, \
                      sublevel as SubLevel, status as Status from logs l inner join users u on u.user_id = l.user_id \
                      inner join boards b on b.board_id = l.board_id where l.synced = 0 and u.login = '" + self.user.login + "'"
     # Grab the user log data
@@ -102,10 +103,20 @@ class Gcompris_synchronization:
 
       #post data to /logs/{login}
       print json_data
-      url =  self.Prop.backendurl + 'logs'
+
+
+
+      #req = urllib2.Request("http://localhost:3000/ping")
+      #with contextlib.closing(urllib2.urlopen(req)) as u:
+      print "Done with the ping now!!!!"
+
+
+
+
+      url =  self.Prop.backendurl + 'savelogs'
       print url
       connection =  httplib.HTTPConnection('localhost:3000')
-      connection.request('POST', '/logs', json_data)
+      connection.request('POST', '/savelogs', json_data)
       response = connection.getresponse()
       connection.close()
       # this is to ensure that same records don't come back
