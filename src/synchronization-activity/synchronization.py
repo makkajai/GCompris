@@ -74,12 +74,9 @@ class Gcompris_synchronization:
                      sublevel as SubLevel, status as Status from logs l inner join users u on u.user_id = l.user_id \
                      inner join boards b on b.board_id = l.board_id where l.synced = 0 and u.login = '" + self.user.login + "'"
     # Grab the user log data
-    if to_server_date is None :
-      print "Nothing to append to the query!"
-    else :
+    if to_server_date is not None :
       query = query + " and l.date > '" + str(to_server_date) + "'"
 
-    print query
     self.cur.execute(query)
     log_data = self.cur.fetchall()
 
@@ -101,18 +98,8 @@ class Gcompris_synchronization:
       json_data = json.dumps(logs)
 
       #post data to /logs/{login}
-      print json_data
-
-      c = httplib.HTTPConnection(self.Prop.backendurl)
-      c.connect()
-      c.putrequest("GET", "/ping")
-      c.endheaders()
-      r = c.getresponse()
-      r.close()
-      print "Done with the ping now!!!!"
-
       connection =  httplib.HTTPConnection(self.Prop.backendurl)
-      connection.request('POST', '/savelogs', json_data)
+      connection.request('POST', '/logs', json_data)
       response = connection.getresponse()
       connection.close()
       # this is to ensure that same records don't come back

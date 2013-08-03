@@ -503,7 +503,6 @@ class Gcompris_login:
       u = c.getresponse()
       json_data = u.read()
       u.close()
-      logging.debug('Got the response' + json_data)
       user = json.loads(json_data)
 
       try:
@@ -625,8 +624,6 @@ class Gcompris_login:
     u.close()
 
     logs = json.loads(json_data)
-    print "Logs from server ###########" + json_data
-    print "Length ###########" + str(len(logs))
 
     for log in logs:
       try: 
@@ -643,5 +640,4 @@ class Gcompris_login:
     else:
       self.cur.execute("insert into sync_status (login, from_server_date) values ('" + user.login + "', '" + str(datetime.datetime.now()) + "')")
     self.con.commit()
-    print "#################All done now###############"
     self.end()
