@@ -99,7 +99,7 @@ class Gcompris_synchronization:
 
       #post data to /logs/{login}
       connection =  httplib.HTTPConnection(self.Prop.backendurl)
-      connection.request('POST', '/logs', json_data)
+      connection.request('POST', '/apiv2/logs', json_data)
       response = connection.getresponse()
       connection.close()
       # this is to ensure that same records don't come back

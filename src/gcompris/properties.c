@@ -166,7 +166,7 @@ gc_prop_new ()
                                                           enabled for non-signed
                                                           in user*/
   tmp->rememberlevel     = 0;
-  tmp->backendurl        = g_strdup("localhost:3000"); //used for backend services - change this to something correct later
+  tmp->backendurl        = g_strdup("www.makkajai.com"); 
   tmp->root_menu         = g_strdup("/");
   tmp->profile           = NULL;
   tmp->logged_user       = NULL;
@@ -423,7 +423,10 @@ gc_prop_load (GcomprisProperties *props, GCPropSourceConf source_conf)
 	    g_warning("Config file parsing error on token %s", token);
 	} else if(!strcmp(value.v_identifier, "backendurl")) {
           g_free(props->backendurl);
-          props->backendurl = scan_get_string(scanner);
+          //temporarily hard-coded - this is to ensure that earlier set properties
+          //do not cause problems for this new value
+          //most old installations will have a value of www.makkajai.com/api for this config
+          props->backendurl = "www.makkajai.com";  //scan_get_string(scanner);
 	  if(!props->backendurl)
 	    g_warning("Config file parsing error on token %s", token);
 	} else if(!strcmp(value.v_identifier, "user_dir")) {

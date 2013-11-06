@@ -498,7 +498,7 @@ class Gcompris_login:
       
       c = httplib.HTTPConnection(self.Prop.backendurl)
       c.connect()
-      c.putrequest("GET", "students/"+text)
+      c.putrequest("GET", "/apiv2/students/"+text)
       c.endheaders()
       u = c.getresponse()
       json_data = u.read()
@@ -596,9 +596,9 @@ class Gcompris_login:
 
 
   def get_logs_from_server(self, user):
-    # GET from logs/{login}?Date=date (date is optional)
+    # GET from /apiv2/logs/{login}?Date=date (date is optional)
 
-    url = 'logs/' + user.login 
+    url = '/apiv2/logs/' + user.login 
 
     self.cur.execute("select from_server_date from sync_status where login = '"+user.login+"'");
     sync_status_data = self.cur.fetchall();
